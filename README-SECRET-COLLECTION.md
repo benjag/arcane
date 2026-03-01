@@ -2,20 +2,20 @@
 
 Purpose
 - Server-side Liquid gating for collections and products using a metafield value and a customer tag.
-- Collection or product with metafield private.access = "cheech" will be hidden from unauthorized visitors; only customers tagged `cheech` can view.
+- Collection or product with metafield custom.private_access = "cheech" will be hidden from unauthorized visitors; only customers tagged `cheech` can view.
 
 Quick setup (admin)
 1. Create metafield definition (one-time)
    - Admin → Settings → Custom data → Collections → Add definition
-   - Namespace: `private`  Key: `access`  Type: single line text
+   - Namespace: `custom`  Key: `private_access`  Type: single line text
    - Repeat for Products if you plan to set product-level restrictions.
 
 2. Mark a collection as secret
    - Admin → Products → Collections → open the collection
-   - In Custom data / Metafields set `private.access` = `cheech` and save
+   - In Custom data / Metafields set `custom.private_access` = `cheech` and save
 
 3. (Optional) Mark individual products
-   - Admin → Products → open a product → set `private.access` = `cheech`
+   - Admin → Products → open a product → set `custom.private_access` = `cheech`
    - Use when you need product-level restrictions independent of collection
 
 4. Tag authorized customers
@@ -27,8 +27,8 @@ Quick setup (admin)
    - Theme will only render the link for authorized customers (UI convenience)
 
 How it works (technical summary)
-- Collection template now checks `collection.metafields.private.access == 'cheech'`.
-- Product template checks `product.metafields.private.access == 'cheech'` OR any parent collection metafield.
+- Collection template now checks `collection.metafields.custom.private_access == 'cheech'` (or uses the metafield `.value`).
+- Product template checks `product.metafields.custom.private_access == 'cheech'` OR any parent collection metafield.
 - If restricted and user is not logged in with tag `cheech`, templates render a friendly restricted message and a `<meta name="robots" content="noindex">`.
 - Authorized customers (tagged) see full content.
 
@@ -50,11 +50,11 @@ Localization & assets
 
 Troubleshooting
 - Authorized user still restricted: ensure the customer record has tag `cheech` and user is logged in.
-- Collection still visible to anonymous: confirm `private.access` metafield is set correctly and templates deployed.
+- Collection still visible to anonymous: confirm `custom.private_access` metafield is set correctly and templates deployed.
 - Missing snippets or locale keys will cause template errors; add minimal snippets/locales if needed.
 
 Admin copy/paste checklist
-- Metafield key: `private.access` = `cheech` (collection or product)
+- Metafield key: `custom.private_access` = `cheech` (collection or product)
 - Customer tag: `cheech`
 - Test: anonymous / logged-in without tag / logged-in with tag
 

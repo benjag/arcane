@@ -17,13 +17,18 @@
     collection--pagination-{{ section.settings.pagination }}
   "
 >
-  {%- comment -%} Server-side gating: if collection.metafields.private.access == 'cheech' then require customer tag 'cheech' to view {%- endcomment -%}
+  {%- comment -%} Server-side gating: use admin metafield custom.private_access == 'cheech' {%- endcomment -%}
   {%- assign is_restricted = false -%}
-  {%- if collection.metafields.private and collection.metafields.private.access == 'cheech' -%}
-    {%- assign is_restricted = true -%}
+  {%- if collection.metafields.custom and collection.metafields.custom.private_access -%}
+    {%- assign access_val = collection.metafields.custom.private_access.value | default: collection.metafields.custom.private_access -%}
+    {%- if access_val == 'cheech' -%}
+      {%- assign is_restricted = true -%}
+    {%- endif -%}
   {%- endif -%}
-
-  {%- if is_restricted -%}
+  {%- if customer and customer.tags contains 'cheech' -%}
+    {%- assign is_authorized = true -%} 
+  {%- endif -%}
+  {%- if is_restricted and not is_authorized -%}
     <div class="collection__inner">
       <meta name="robots" content="noindex">
       <div class="restricted-collection ta-c">

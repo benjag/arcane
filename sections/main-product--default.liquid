@@ -35,15 +35,21 @@
   endfor
 -%}
 
-{%- comment -%} Server-side gating: check product.metafields.private.access == 'cheech' or any parent collection metafield; block render if unauthorized {%- endcomment -%}
+{%- comment -%} Server-side gating: use admin metafield custom.private_access == 'cheech' for product or any parent collection {%- endcomment -%}
 {%- assign private_product = false -%}
-{%- if product.metafields.private and product.metafields.private.access == 'cheech' -%}
-  {%- assign private_product = true -%}
+{%- if product.metafields.custom and product.metafields.custom.private_access -%}
+  {%- assign prod_access = product.metafields.custom.private_access.value | default: product.metafields.custom.private_access -%}
+  {%- if prod_access == 'cheech' -%}
+    {%- assign private_product = true -%}
+  {%- endif -%}
 {%- else -%}
   {%- for coll in product.collections -%}
-    {%- if coll.metafields.private and coll.metafields.private.access == 'cheech' -%}
-      {%- assign private_product = true -%}
-      {%- break -%}
+    {%- if coll.metafields.custom and coll.metafields.custom.private_access -%}
+      {%- assign coll_access = coll.metafields.custom.private_access.value | default: coll.metafields.custom.private_access -%}
+      {%- if coll_access == 'cheech' -%}
+        {%- assign private_product = true -%}
+        {%- break -%}
+      {%- endif -%}
     {%- endif -%}
   {%- endfor -%}
 {%- endif -%}
