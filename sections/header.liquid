@@ -110,7 +110,13 @@
     {%- else -%}
       {% render 'navigation' with menu: links %}
     {%- endif -%}
-    {% if customer and customer.tags contains 'cheech' and section.settings.cheech_collection_url != blank %} <ul class="header__links-list fs-body-base"> <li><a href="{{ section.settings.cheech_collection_url }}" class="header__cheech-link" data-link>🔒 Secret Collection</a></li> </ul> {% endif %}
+    {% if customer and customer.tags contains 'cheech' and section.settings.cheech_collection_url != blank %}
+       <ul class="header__links-list fs-body-base"> 
+        <li>
+          <a href="{{ section.settings.cheech_collection_url }}" class="header__cheech-link" data-link>🔒 Secret Collection</a>
+        </li> 
+      </ul> 
+    {% endif %}
   </nav>
 {%- endcapture -%}
 
@@ -250,12 +256,9 @@
 </header>
 
 <script>
-  // Set heading height at component level (safe selector with fallbacks)
-  (function() {
-    var headerEl = document.getElementById('shopify-section-{{ section.id }}') || document.querySelector('[data-section-id="{{ section.id }}"]') || document.querySelector('header[data-section-type="header"]');
-    if (!headerEl) return;
-    document.documentElement.style.setProperty('--height-header', headerEl.offsetHeight + 'px');
-  })();
+  // Set heading height at component level
+  const header = document.querySelector('#shopify-section-header');
+  document.documentElement.style.setProperty('--height-header', header.offsetHeight + 'px');
 </script>
 
 <style>
