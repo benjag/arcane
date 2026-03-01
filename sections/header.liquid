@@ -260,9 +260,12 @@
 </header>
 
 <script>
-  // Set heading height at component level
-  const header = document.querySelector('#shopify-section-header');
-  document.documentElement.style.setProperty('--height-header', header.offsetHeight + 'px');
+  // Set heading height at component level (safe selector with fallbacks)
+  (function() {
+    var headerEl = document.getElementById('shopify-section-{{ section.id }}') || document.querySelector('[data-section-id="{{ section.id }}"]') || document.querySelector('header[data-section-type="header"]');
+    if (!headerEl) return;
+    document.documentElement.style.setProperty('--height-header', headerEl.offsetHeight + 'px');
+  })();
 </script>
 
 <style>
