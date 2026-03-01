@@ -35,23 +35,33 @@
   endfor
 -%}
 
-{%- comment -%} Server-side gating: use admin metafield custom.private_access == 'cheech' for product or any parent collection {%- endcomment -%}
+{%- comment -%} Server-side gating: check current collection context first, then product metafield, then product.collections {%- endcomment -%}
 {%- assign private_product = false -%}
-{%- if product.metafields.custom and product.metafields.custom.private_access -%}
-  {%- assign prod_access = product.metafields.custom.private_access.value | default: product.metafields.custom.private_access -%}
-  {%- if prod_access == 'cheech' -%}
+
+{%- if collection and collection.metafields.custom and collection.metafields.custom.private_access -%}
+  {%- assign coll_access = collection.metafields.custom.private_access.value | default: collection.metafields.custom.private_access -%}
+  {%- if coll_access == 'cheech' -%}
     {%- assign private_product = true -%}
   {%- endif -%}
-{%- else -%}
-  {%- for coll in product.collections -%}
-    {%- if coll.metafields.custom and coll.metafields.custom.private_access -%}
-      {%- assign coll_access = coll.metafields.custom.private_access.value | default: coll.metafields.custom.private_access -%}
-      {%- if coll_access == 'cheech' -%}
-        {%- assign private_product = true -%}
-        {%- break -%}
-      {%- endif -%}
+{%- endif -%}
+
+{%- if private_product == false -%}
+  {%- if product.metafields.custom and product.metafields.custom.private_access -%}
+    {%- assign prod_access = product.metafields.custom.private_access.value | default: product.metafields.custom.private_access -%}
+    {%- if prod_access == 'cheech' -%}
+      {%- assign private_product = true -%}
     {%- endif -%}
-  {%- endfor -%}
+  {%- else -%}
+    {%- for coll in product.collections -%}
+      {%- if coll.metafields.custom and coll.metafields.custom.private_access -%}
+        {%- assign coll_access = coll.metafields.custom.private_access.value | default: coll.metafields.custom.private_access -%}
+        {%- if coll_access == 'cheech' -%}
+          {%- assign private_product = true -%}
+          {%- break -%}
+        {%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
 {%- endif -%}
 
 {%- comment -%} Explicit authorization flag to avoid complex conditional syntax {% endcomment -%}
