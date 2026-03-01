@@ -21,8 +21,6 @@
 
   assign links = linklists[menu].links
   assign secondary_links = linklists[secondary_menu].links
-  
-  assign has_cheech_access = customer.tags contains 'cheech'
 
   assign secondary_menu_valid = false
 
@@ -112,15 +110,7 @@
     {%- else -%}
       {% render 'navigation' with menu: links %}
     {%- endif -%}
-    {% if has_cheech_access and cheech_collection_url != blank %}
-      <ul class="header__links-list fs-body-base">
-        <li>
-          <a href="{{ cheech_collection_url }}" class="header__cheech-link" data-link>
-            🔒 Secret Collection
-          </a>
-        </li>
-      </ul>
-    {% endif %}
+    {% if customer and customer.tags contains 'cheech' and section.settings.cheech_collection_url != blank %} <ul class="header__links-list fs-body-base"> <li><a href="{{ section.settings.cheech_collection_url }}" class="header__cheech-link" data-link>🔒 Secret Collection</a></li> </ul> {% endif %}
   </nav>
 {%- endcapture -%}
 
