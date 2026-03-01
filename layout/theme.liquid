@@ -85,15 +85,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="theme-editor-scroll-offset"></div>
 
     <div class="header__space" data-header-space></div>
-    {% section 'announcement-bar' %}
-    {% section 'header' %}
+    {% if settings.sections.announcement-bar %}
+      {% section 'announcement-bar' %}
+    {% endif %}
+    {% if settings.sections.header %}
+      {% section 'header' %}
+    {% endif %}
 
     <main id="main" class="main">
       {{ content_for_layout }}
     </main>
 
-    {% section 'footer' %}
-    {% section 'popup' %}
+    {% if settings.sections.footer %}
+      {% section 'footer' %}
+    {% endif %}
+    {% if settings.sections.popup %}
+      {% section 'popup' %}
+    {% endif %}
     {% render 'modal' %}
     {% render 'store-availability-drawer' %}
 
