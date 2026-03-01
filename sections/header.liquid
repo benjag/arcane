@@ -108,15 +108,16 @@
     {%- if menu == blank and secondary_menu != blank -%}
       {% render 'navigation' with menu: secondary_links %}
     {%- else -%}
+      {% if customer and customer.tags contains 'cheech' and section.settings.cheech_collection_url != blank %}
+        <ul class="header__links-list fs-body-base" style="margin-left: var(--spacing-medium);"> 
+         <li>
+           <a href="{{ section.settings.cheech_collection_url }}" class="header__cheech-link" data-link>🔒 Secret Collection</a>
+         </li> 
+       </ul> 
+     {% endif %}
       {% render 'navigation' with menu: links %}
     {%- endif -%}
-    {% if customer and customer.tags contains 'cheech' and section.settings.cheech_collection_url != blank %}
-       <ul class="header__links-list fs-body-base"> 
-        <li>
-          <a href="{{ section.settings.cheech_collection_url }}" class="header__cheech-link" data-link>🔒 Secret Collection</a>
-        </li> 
-      </ul> 
-    {% endif %}
+
   </nav>
 {%- endcapture -%}
 
