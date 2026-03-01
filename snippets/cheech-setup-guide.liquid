@@ -1,0 +1,109 @@
+{% comment %}
+  CHEECH PRODUCTS - SECRET COLLECTION SETUP GUIDE
+  
+  This snippet documents the implementation of the "cheech" secret products feature.
+  Customers with the "cheech" tag will see exclusive products and menu items.
+  
+  FILES MODIFIED/CREATED:
+  1. sections/main-product--cheech.liquid (NEW) - Product template for cheech products
+  2. templates/product.cheech.json (NEW) - Template configuration that uses main-product--cheech
+  3. snippets/product-form.liquid (MODIFIED) - Now accepts has_access parameter
+  4. sections/header.liquid (MODIFIED) - Added cheech menu item for tagged customers
+  
+  IMPLEMENTATION STEPS:
+  
+  ============================================
+  STEP 1: Create a Secret Collection
+  ============================================
+  1. Go to Shopify Admin > Products > Collections
+  2. Create a new collection called "Secret Cheech" or similar
+  3. Note the collection URL (e.g., /collections/secret-cheech)
+  4. Add your secret products to this collection
+  5. Tag these products with a product tag (optional - for organization)
+  
+  ============================================
+  STEP 2: Assign the Cheech Tag to Customers
+  ============================================
+  1. Go to Shopify Admin > Customers
+  2. Open a customer's profile
+  3. In the "Tags" field, add the tag: cheech
+  4. Save the customer
+  
+  (You can bulk add tags via CSV import if you have many customers)
+  
+  ============================================
+  STEP 3: Configure the Header Menu
+  ============================================
+  1. Go to Theme Editor (Customize)
+  2. Click on "Header" section
+  3. In the header settings, find "Cheech Collection URL"
+  4. Enter the secret collection URL (e.g., /collections/secret-cheech)
+  5. Save and publish
+  
+  Now signed-in cheech customers will see "🔒 Secret Collection" in the header menu!
+  
+  ============================================
+  STEP 4: Assign Products to Cheech Template
+  ============================================
+  
+  For products you want to restrict to cheech customers:
+  
+  1. Go to Shopify Admin > Products
+  2. Open the product you want to make secret
+  3. Scroll down to "Template assignment"
+  4. Change from "Default product" to "cheech"
+  5. Save the product
+  
+  Now:
+  - Cheech-tagged customers see the full product and can buy it
+  - Other customers see "This Product is Not Available" message
+  - The buy button is disabled for non-cheech customers
+  
+  ============================================
+  BEHAVIOR SUMMARY
+  ============================================
+  
+  FOR CHEECH-TAGGED CUSTOMERS:
+  ✓ See "🔒 Secret Collection" menu item in header
+  ✓ Can access secret collection page normally
+  ✓ Can view full product details
+  ✓ Can add products to cart and purchase
+  ✓ Quick purchase bar is enabled
+  
+  FOR NON-CHEECH CUSTOMERS:
+  ✗ Do NOT see the secret menu item
+  ✗ If linked directly to a cheech product:
+    - See a red "Not Available" box at top
+    - Product details are faded/disabled
+    - Buy button says "UNAVAILABLE" and is disabled
+    - Payment buttons and shop pay hidden
+    - Get a "Continue Shopping" button instead
+  
+  ============================================
+  CUSTOMIZATION
+  ============================================
+  
+  To customize the access message, edit:
+  sections/main-product--cheech.liquid
+  
+  Find this section:
+  {% unless has_cheech_access %}
+    <div class="product__access-restricted" style="...">
+      <h2>This Product is Not Available</h2>
+      <p>This exclusive product is only available...</p>
+  
+  You can change the message, styling, and contact link.
+  
+  ============================================
+  NOTES
+  ============================================
+  
+  - The tag check is case-sensitive: must be "cheech" (lowercase)
+  - Only customers who are logged in can have tags
+  - Non-logged-in users won't see the menu item
+  - If a non-cheech customer directly links a cheech product to 
+    someone else, they'll see the restricted message (good!)
+  - The system doesn't hide the product from search/collections
+    on the storefront - use Shopify's permission-based access
+    or manually manage collection visibility if needed
+{% endcomment %}

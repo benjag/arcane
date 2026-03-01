@@ -1,0 +1,8 @@
+.money-details, .pre-money {
+  display: inline !important;
+  padding-right: 2%;
+}
+
+.pre-money {
+  color:#551E3A;
+}
