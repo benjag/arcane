@@ -25,10 +25,18 @@
       {%- assign is_restricted = true -%}
     {%- endif -%}
   {%- endif -%}
-  {%- if customer and customer.tags contains 'cheech' -%}
-    {%- assign is_authorized = true -%} 
-  {%- endif -%}
-  {%- if is_restricted and not is_authorized -%}
+{%- comment -%} Explicit authorization flag to avoid complex conditional syntax {% endcomment -%}
+{%- assign is_authorized = false -%}
+{%- if customer and customer.tags contains 'cheech' -%}
+  {%- assign is_authorized = true -%}
+{%- endif -%}
+
+{%- assign show_restricted = false -%}
+{%- if is_restricted and is_authorized == false -%}
+  {%- assign show_restricted = true -%}
+{%- endif -%}
+
+  {%- if show_restricted -%}
     <div class="collection__inner">
       <meta name="robots" content="noindex">
       <div class="restricted-collection ta-c">
