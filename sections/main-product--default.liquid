@@ -35,55 +35,33 @@
   endfor
 -%}
 
-{%- capture left_column_blocks -%}
-  {%- for block in section.blocks -%}
-    {%- if block.type == 'accordion' or block.type == 'payment_widget' or block.type == 'security_widget' or block.type == 'shipping_widget' -%}
-      {%- if block.settings.column == 'left' -%}
-        {%- if block.type == 'accordion' -%}
-          {%- liquid
-            assign accordion_class = accordion_base_class | append: ' accordion--full' | append: ' accordion--' | append: block.settings.style
-          -%}
-
-          {%- render 'accordion-block' with
-            block: block,
-            classes: accordion_class,
-            heading: block.settings.heading,
-            content: block.settings.content
-          -%}
-        {%- else -%}
-          {% render 'widgets-accordion' with
-            classes: 'accordion--full'
-            block: block,
-            style: block.settings.style
-          %}
-        {%- endif -%}
-      {%- endif -%}
+{%- comment -%} Server-side gating: check product.metafields.private.access == 'cheech' or any parent collection metafield; block render if unauthorized {%- endcomment -%}
+{%- assign private_product = false -%}
+{%- if product.metafields.private and product.metafields.private.access == 'cheech' -%}
+  {%- assign private_product = true -%}
+{%- else -%}
+  {%- for coll in product.collections -%}
+    {%- if coll.metafields.private and coll.metafields.private.access == 'cheech' -%}
+      {%- assign private_product = true -%}
+      {%- break -%}
     {%- endif -%}
   {%- endfor -%}
-{%- endcapture -%}
+{%- endif -%}
 
-{% comment %} This should be made into a reusable snippet {% endcomment %}
-{% capture social_share %}
-  <button
-    type="button"
-    class="product__share product__block product__block--medium btn btn--secondary btn--medium-small"
-    data-social-share
-    aria-haspopup="true"
-  >
-    <span class="product__share-text fs-body-small fs-body-bold">
-      {%- render 'icon' with icon: 'social-share' -%}
-      {{ 'general.social.share' | t }}
-    </span>
+{%- comment -%} Explicit authorization flag to avoid complex conditional syntax {% endcomment -%}
+{%- assign is_authorized = false -%}
+{%- if customer and customer.tags contains 'cheech' -%}
+  {%- assign is_authorized = true -%}
+{%- endif -%}
 
-    <div class="product__share-icons" aria-hidden="true" aria-label="{{ 'general.social.alt_text.share_menu' | t }}">
-      {% render 'share-icons' with
-        url: product.url,
-        title: product.title,
-        image: product.featured_image
-      %}
-    </div>
-  </button>
-{% endcapture %}
+{%- if private_product and not is_authorized -%}
+  <meta name="robots" content="noindex">
+  <div class="restricted-product ta-c">
+    <h1 class="fs-heading-2-large">{{ 'products.restricted.title' | t | default: 'Product not available' }}</h1>
+    <p class="fs-body-base">{{ 'products.restricted.message' | t | default: 'This product is restricted. Please sign in to view.' }}</p>
+    <a class="btn btn--text-link" href="{{ routes.account_login_url }}">{{ 'general.login' | t | default: 'Sign in' }}</a>
+  </div>
+{%- else -%}
 
 <div
   class="product"
@@ -313,7 +291,7 @@
                               aria-label="{{ value }}"
                               data-button="{{ value | handleize }}}--{{ forloop.index0 }}"
                               class="product__color-swatch {% if option.selected_value == value %}selected{% endif %}"
-                              style="background-color: {{ value | lowercase | replace: ' ', '' }}; background-image: url({{ value | handle | append: '.' | append: file_extension | file_url }})"
+                              style="background-color: {{ value | downcase | replace: ' ', '' }}; background-image: url({{ value | handle | append: '.' | append: file_extension | file_url }})"
                             >
                             </button>
                           {%- endfor -%}
@@ -356,7 +334,8 @@
 
               {%- unless block.settings.show_labels -%}
                 {% assign label_classes =  label_classes | append: ' visually-hidden' %}
-              {%- endunless -%}
+              {%- endunless %}
+
               <div class="product__controls-group product__controls-group-quanity  product__block product__block--medium">
                 <div class="product__label-wrapper{% unless block.settings.show_labels %} product__label-wrapper--collapse{% endunless %}">
                   <label class="product__label {{ label_classes }}" for="Quantity-Input-{{ product.id }}">
@@ -575,7 +554,7 @@
   window.ShopifyXR=window.ShopifyXR||function(){(ShopifyXR.q=ShopifyXR.q||[]).push(arguments)}
   ShopifyXR('addModels', {{ models }});
 </script>
-<script src='//cdn.shopify.com/shopifycloud/shopify-xr-js/assets/v1.0/shopify-xr.en.js' defer='defer'></script>
+{{ '//cdn.shopify.com/shopifycloud/shopify-xr-js/assets/v1.0/shopify-xr.en.js' | script_tag }}
 
 {%- unless product == empty -%}
   <script type="application/json" id="ProductJson-{{ section.id }}">
@@ -595,7 +574,7 @@
   {%- if product.featured_media -%}
     {%- assign media_size = product.featured_media.preview_image.width | append: 'x' -%}
     "image": [
-      {{ product.featured_media | img_url: media_size | prepend: "https:" | json }}
+      {{ product.featured_media | image_url: media_size | prepend: "https:" | json }}
     ],
   {%- endif -%}
   "description": {{ product.description | strip_html | json }},
@@ -1177,3 +1156,5 @@
     ]
   }
 {% endschema %}
+
+{%- endif -%}

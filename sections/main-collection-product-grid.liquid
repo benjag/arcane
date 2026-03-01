@@ -17,6 +17,23 @@
     collection--pagination-{{ section.settings.pagination }}
   "
 >
+  {%- comment -%} Server-side gating: if collection.metafields.private.access == 'cheech' then require customer tag 'cheech' to view {%- endcomment -%}
+  {%- assign is_restricted = false -%}
+  {%- if collection.metafields.private and collection.metafields.private.access == 'cheech' -%}
+    {%- assign is_restricted = true -%}
+  {%- endif -%}
+
+  {%- if is_restricted -%}
+    <div class="collection__inner">
+      <meta name="robots" content="noindex">
+      <div class="restricted-collection ta-c">
+        <h1 class="fs-heading-2-large">{{ 'collections.restricted.title' | t | default: 'Collection not available' }}</h1>
+        <p class="fs-body-base">{{ 'collections.restricted.message' | t | default: 'You must be signed in with access to view this collection.' }}</p>
+        <a class="btn btn--text-link" href="{{ routes.account_login_url }}">{{ 'general.login' | t | default: 'Sign in' }}</a>
+      </div>
+    </div>
+  {%- else -%}
+
   <div class="collection__inner">
     {%- if collection.all_products_count > 0 -%}
       <script type="application/json" data-tags>
@@ -118,6 +135,8 @@
       </div>
     {%- endif -%}
   </div>
+
+  {%- endif -%}
 </section>
 
 {% schema %}
