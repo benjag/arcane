@@ -109,7 +109,7 @@
       {% render 'navigation' with menu: secondary_links %}
     {%- else -%}
       {% if customer and customer.tags contains 'cheech' and section.settings.cheech_collection_url != blank %}
-        <ul class="header__links-list fs-body-base" style="margin-left: var(--spacing-medium);"> 
+        <ul class="header__links-list fs-body-base" style="margin-right: var(--spacing-medium);"> 
          <li>
            <a href="{{ section.settings.cheech_collection_url }}" class="header__cheech-link" data-link>🔒 Secret Collection</a>
          </li> 
@@ -314,7 +314,7 @@
         "type": "text",
         "label": "Cheech Collection URL",
         "info": "URL to the secret collection for cheech-tagged customers (e.g., /collections/secret-cheech)",
-        "default": "arcanearomatics.com/collections/secret-collection"
+        "default": "/collections/secret-collection"
       },
       {
         "id": "style",
