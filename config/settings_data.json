@@ -167,7 +167,7 @@
           "logo_max_width": 120,
           "menu": "main-menu",
           "secondary_menu": "",
-          "cheech_collection_url": "arcanearomatics.com/collections/secret-collection",
+          "cheech_collection_url": "/collections/secret-collection",
           "style": "inline",
           "navigation_position": "below",
           "logo_position": "center",
