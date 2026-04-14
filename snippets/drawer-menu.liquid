@@ -54,6 +54,15 @@
         <div class="drawer-menu__contents">
           <div class="drawer-menu__main" data-main>
             <ul class="drawer-menu__primary-links drawer-menu-list--0" data-primary-container="true" data-depth="0">
+              
+              {%- if customer and customer.tags contains 'cheech' and cheech_collection_url != blank -%}
+                <li class="drawer-menu__item drawer-menu__item--emphasized" data-list-item>
+                  <a class="drawer-menu__link fs-body-base fs-body-large-ns" href="{{ cheech_collection_url }}">
+                    <span class="ff-heading fs-heading-2-base fs-heading-2-large-ns">Cheech & Chong</span>
+                  </a>
+                  </li>
+              {%- endif -%}
+              
               <!-- if primary doesn't exist but secondary does -->
               {%- if menu == blank and secondary_menu != blank -%}
                 {% render 'drawer-menu-list', links: secondary_links, emphasized: true %}
@@ -71,7 +80,8 @@
               {%- if customer and customer.tags contains 'cheech' and cheech_collection_url != blank -%}
                 <li class="drawer-menu__item drawer-menu__item--emphasized" data-list-item>
                   <a class="drawer-menu__link fs-body-base fs-body-large-ns" href="{{ cheech_collection_url }}">
-                    Cheech & Chong </a>
+                    <span class="ff-heading fs-heading-2-base fs-heading-2-large-ns">Cheech & Chong</span>
+                  </a>
                   </li>
               {%- endif -%}
 
