@@ -68,6 +68,13 @@
                 {% render 'drawer-menu-list', links: links, emphasized: true %}
               {%- endif -%}
 
+              {%- if customer and customer.tags contains 'cheech' and cheech_collection_url != blank -%}
+                <li class="drawer-menu__item drawer-menu__item--emphasized" data-list-item>
+                  <a class="drawer-menu__link fs-body-base fs-body-large-ns" href="{{ cheech_collection_url }}">
+                    Cheech & Chong </a>
+                  </li>
+              {%- endif -%}
+
               <li class="drawer-menu__item drawer-menu__search-parent" data-list-item>
                 <a
                   class="drawer-menu__link fs-body-base fs-body-large-ns"
