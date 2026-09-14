@@ -3,7 +3,7 @@
 
   <div class="quick-cart__container popover">
     <button type="button" class="quick-cart__close" aria-label="{{ 'general.accessibility.close_modal' | t }}" data-close-icon>
-      {% render 'icon-button' with icon: 'close-stroke' %}
+      {% render 'icon-button' with icon, icon: 'close-stroke' %}
     </button>
     <div class="quick-cart__cart visible" data-cart data-scroll-lock-ignore>
       <div class="quick-cart__header ff-heading fs-heading-2-base fs-heading-2-large-ns">{{ 'quick_cart.cart' | t }}</div>
@@ -21,3 +21,13 @@
     </div>
   </div>
 </div>
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'icon-button' with icon: 'close-stroke' %}"
+  to: "{% render 'icon-button' with icon, icon: 'close-stroke' %}"
+  position: 277..335
+{% endcomment %}

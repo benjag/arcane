@@ -39,10 +39,7 @@
           {%- endif -%}
 
           {%- if block.settings.image != blank -%}
-            {% render 'image' with
-              image: block.settings.image,
-              disable_style: should_disable_image_style
-            %}
+            {% render 'image' with image, image: block.settings.image, disable_style: should_disable_image_style %}
           {%- endif -%}
 
           {% if block.settings.video_url != blank %}
@@ -105,3 +102,18 @@
     ]
   }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: |-
+    {% render 'image' with
+                  image: block.settings.image,
+                  disable_style: should_disable_image_style
+                %}
+  to: "{% render 'image' with image, image: block.settings.image, disable_style: should_disable_image_style
+    %}"
+  position: 1435..1538
+{% endcomment %}

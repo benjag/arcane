@@ -33,11 +33,7 @@
 
       {% if show_collection_image and collection.image %}
         <div class="collection__header-image-wrapper">
-          {% render 'image' with
-            image: collection.image,
-            wrapper_class: 'lazyload collection__header-image',
-            disable_style: disable_image_style
-          %}
+          {% render 'image' with image, image: collection.image, wrapper_class: 'lazyload collection__header-image', disable_style: disable_image_style %}
         </div>
       {% endif %}
     </header>
@@ -85,4 +81,19 @@
     }
   ]
 }
-{% endschema %}
+{% endschema %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: |-
+    {% render 'image' with
+                image: collection.image,
+                wrapper_class: 'lazyload collection__header-image',
+                disable_style: disable_image_style
+              %}
+  to: "{% render 'image' with image, image: collection.image, wrapper_class: 'lazyload
+    collection__header-image', disable_style: disable_image_style %}"
+  position: 1162..1306
+{%- endcomment -%}

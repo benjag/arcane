@@ -23,11 +23,7 @@
   {%- endif -%}
 
   {%- if image != blank -%}
-    {% render 'image' with
-      image: image,
-      wrapper_class: 'social-proof__image',
-      disable_style: image_is_constrained
-    %}
+    {% render 'image' with image, image: image, wrapper_class: 'social-proof__image', disable_style: image_is_constrained %}
   {%- else -%}
     <div class="social-proof__image placeholder-image">
       {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
@@ -44,7 +40,7 @@
     <div class="social-proof__item-footer">
       {% unless likes == blank %}
         <div class="social-proof__item-likes fs-body-small fs-body-base-ns">
-          {% render 'icon' with icon: 'heart' %}
+          {% render 'icon' with icon, icon: 'heart' %}
           <span><span>{{ likes }}</span>&nbsp;{{ 'sections.social_proof.likes' | t }}</span>
         </div>
       {% endunless %}
@@ -64,4 +60,18 @@
       {% endif %}
     </div>
   {% endif %}
-</div>
+</div>{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'image' with\r\n      image: image,\r\n      wrapper_class: 'social-proof__image',\r\n
+    \     disable_style: image_is_constrained\r\n    %}"
+  to: "{% render 'image' with image, image: image, wrapper_class: 'social-proof__image',
+    disable_style: image_is_constrained %}"
+  position: 575..695
+- from: "{% render 'icon' with icon: 'heart' %}"
+  to: "{% render 'icon' with icon, icon: 'heart' %}"
+  position: 1183..1227
+{%- endcomment -%}

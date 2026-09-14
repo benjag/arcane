@@ -31,18 +31,13 @@
       {%- for block in section.blocks -%}
         {%- assign featured_collection = block.settings.collection -%}
         {%- if featured_collection != empty -%}
-          {% render 'collection-item' with
-            collection: featured_collection,
-            subheading: block.settings.subheading,
-            aspect_ratio: section.settings.aspect_ratio,
-            text_max_width: block.settings.text_max_width,
-          %}
+          {% render 'collection-item' with collection, collection: featured_collection, subheading: block.settings.subheading, aspect_ratio: section.settings.aspect_ratio, text_max_width: block.settings.text_max_width %}
         {%- else -%}
-          {% render 'collection-item' with collection: empty, aspect_ratio: section.settings.aspect_ratio %}
+          {% render 'collection-item' with collection, collection: "", aspect_ratio: section.settings.aspect_ratio %}
         {%- endif -%}
       {%- else -%}
         {%- for i in (1..columns) -%}
-          {% render 'collection-item' with collection: empty, aspect_ratio: section.settings.aspect_ratio %}
+          {% render 'collection-item' with collection, collection: "", aspect_ratio: section.settings.aspect_ratio %}
         {%- endfor -%}
       {%- endfor -%}
     </div>
@@ -211,3 +206,28 @@
     ]
   }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'collection-item' with\r\n            collection: featured_collection,\r\n
+    \           subheading: block.settings.subheading,\r\n            aspect_ratio:
+    section.settings.aspect_ratio,\r\n            text_max_width: block.settings.text_max_width,\r\n
+    \         %}"
+  to: "{% render 'collection-item' with collection, collection: featured_collection,
+    subheading: block.settings.subheading, aspect_ratio: section.settings.aspect_ratio,
+    text_max_width: block.settings.text_max_width %}"
+  position: 1012..1222
+- from: "{% render 'collection-item' with collection: empty, aspect_ratio: section.settings.aspect_ratio
+    %}"
+  to: '{% render ''collection-item'' with collection, collection: "", aspect_ratio:
+    section.settings.aspect_ratio %}'
+  position: 1256..1363
+- from: "{% render 'collection-item' with collection: empty, aspect_ratio: section.settings.aspect_ratio
+    %}"
+  to: '{% render ''collection-item'' with collection, collection: "", aspect_ratio:
+    section.settings.aspect_ratio %}'
+  position: 1457..1564
+{% endcomment %}

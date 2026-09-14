@@ -21,32 +21,16 @@
       {%- for block in section.blocks -%}
         {%- case block.type -%}
           {%- when 'payment_widget' -%}
-            {% render 'widgets' with
-              block: block,
-              current_variant: current_variant,
-              display_on_desktop: true
-            %}
+            {% render 'widgets' with block, block: block, current_variant: current_variant, display_on_desktop: true %}
 
           {%- when 'security_widget' -%}
-            {% render 'widgets' with
-              block: block,
-              current_variant: current_variant,
-              display_on_desktop: true
-            %}
+            {% render 'widgets' with block, block: block, current_variant: current_variant, display_on_desktop: true %}
 
           {%- when 'shipping_widget' -%}
-            {% render 'widgets' with
-              block: block,
-              current_variant: current_variant,
-              display_on_desktop: true
-            %}
+            {% render 'widgets' with block, block: block, current_variant: current_variant, display_on_desktop: true %}
 
           {%- when 'custom_widget' -%}
-            {% render 'widgets' with
-              block: block,
-              current_variant: current_variant,
-              display_on_desktop: true
-            %}
+            {% render 'widgets' with block, block: block, current_variant: current_variant, display_on_desktop: true %}
 
         {%- endcase -%}
       {%- endfor -%}
@@ -68,12 +52,7 @@
                 assign accordion_class = accordion_base_class | append: ' accordion--' | append: block.settings.style
               -%}
 
-              {%- render 'accordion-block' with
-                block: block,
-                classes: accordion_class,
-                heading: description_title,
-                content: product.description
-              -%}
+              {%- render 'accordion-block' with block, block: block, classes: accordion_class, heading: description_title, content: product.description -%}
             {%- endif -%}
 
           {%- when 'accordion' -%}
@@ -81,12 +60,7 @@
               assign accordion_class = accordion_base_class | append: ' accordion--' | append: block.settings.style
             -%}
 
-            {%- render 'accordion-block' with
-              block: block,
-              classes: accordion_class,
-              heading: block.settings.heading,
-              content: block.settings.content
-            -%}
+            {%- render 'accordion-block' with block, block: block, classes: accordion_class, heading: block.settings.heading, content: block.settings.content -%}
         {%- endcase -%}
       {%- endfor -%}
     </div>
@@ -108,12 +82,7 @@
                 assign accordion_class = accordion_base_class | append: ' accordion--' | append: block.settings.style
               -%}
 
-              {%- render 'accordion-block' with
-                block: block,
-                classes: accordion_class,
-                heading: description_title,
-                content: product.description
-              -%}
+              {%- render 'accordion-block' with block, block: block, classes: accordion_class, heading: description_title, content: product.description -%}
             {%- endif -%}
 
           {%- when 'accordion' -%}
@@ -121,12 +90,7 @@
               assign accordion_class = accordion_base_class | append: ' accordion--' | append: block.settings.style
             -%}
 
-            {%- render 'accordion-block' with
-              block: block,
-              classes: accordion_class,
-              heading: block.settings.heading,
-              content: block.settings.content
-            -%}
+            {%- render 'accordion-block' with block, block: block, classes: accordion_class, heading: block.settings.heading, content: block.settings.content -%}
 
         {%- endcase -%}
       {%- endfor -%}
@@ -136,32 +100,16 @@
       {%- for block in section.blocks -%}
         {%- case block.type -%}
           {%- when 'payment_widget' -%}
-            {% render 'widgets' with
-              block: block,
-              current_variant: current_variant,
-              display_on_desktop: true
-            %}
+            {% render 'widgets' with block, block: block, current_variant: current_variant, display_on_desktop: true %}
 
           {%- when 'security_widget' -%}
-            {% render 'widgets' with
-              block: block,
-              current_variant: current_variant,
-              display_on_desktop: true
-            %}
+            {% render 'widgets' with block, block: block, current_variant: current_variant, display_on_desktop: true %}
 
           {%- when 'shipping_widget' -%}
-            {% render 'widgets' with
-              block: block,
-              current_variant: current_variant,
-              display_on_desktop: true
-            %}
+            {% render 'widgets' with block, block: block, current_variant: current_variant, display_on_desktop: true %}
 
           {%- when 'custom_widget' -%}
-            {% render 'widgets' with
-              block: block,
-              current_variant: current_variant,
-              display_on_desktop: true
-            %}
+            {% render 'widgets' with block, block: block, current_variant: current_variant, display_on_desktop: true %}
 
         {%- endcase -%}
       {%- endfor -%}
@@ -438,4 +386,122 @@
       }
     ]
   }
-{% endschema %}
+{% endschema %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: |-
+    {% render 'widgets' with
+                  block: block,
+                  current_variant: current_variant,
+                  display_on_desktop: true
+                %}
+  to: "{% render 'widgets' with block, block: block, current_variant: current_variant,
+    display_on_desktop: true %}"
+  position: 818..925
+- from: |-
+    {% render 'widgets' with
+                  block: block,
+                  current_variant: current_variant,
+                  display_on_desktop: true
+                %}
+  to: "{% render 'widgets' with block, block: block, current_variant: current_variant,
+    display_on_desktop: true %}"
+  position: 980..1087
+- from: |-
+    {% render 'widgets' with
+                  block: block,
+                  current_variant: current_variant,
+                  display_on_desktop: true
+                %}
+  to: "{% render 'widgets' with block, block: block, current_variant: current_variant,
+    display_on_desktop: true %}"
+  position: 1142..1249
+- from: |-
+    {% render 'widgets' with
+                  block: block,
+                  current_variant: current_variant,
+                  display_on_desktop: true
+                %}
+  to: "{% render 'widgets' with block, block: block, current_variant: current_variant,
+    display_on_desktop: true %}"
+  position: 1302..1409
+- from: |-
+    {%- render 'accordion-block' with
+                    block: block,
+                    classes: accordion_class,
+                    heading: description_title,
+                    content: product.description
+                  -%}
+  to: "{%- render 'accordion-block' with block, block: block, classes: accordion_class,
+    heading: description_title, content: product.description -%}"
+  position: 2276..2417
+- from: |-
+    {%- render 'accordion-block' with
+                  block: block,
+                  classes: accordion_class,
+                  heading: block.settings.heading,
+                  content: block.settings.content
+                -%}
+  to: "{%- render 'accordion-block' with block, block: block, classes: accordion_class,
+    heading: block.settings.heading, content: block.settings.content -%}"
+  position: 2648..2797
+- from: |-
+    {%- render 'accordion-block' with
+                    block: block,
+                    classes: accordion_class,
+                    heading: description_title,
+                    content: product.description
+                  -%}
+  to: "{%- render 'accordion-block' with block, block: block, classes: accordion_class,
+    heading: description_title, content: product.description -%}"
+  position: 3677..3818
+- from: |-
+    {%- render 'accordion-block' with
+                  block: block,
+                  classes: accordion_class,
+                  heading: block.settings.heading,
+                  content: block.settings.content
+                -%}
+  to: "{%- render 'accordion-block' with block, block: block, classes: accordion_class,
+    heading: block.settings.heading, content: block.settings.content -%}"
+  position: 4049..4198
+- from: |-
+    {% render 'widgets' with
+                  block: block,
+                  current_variant: current_variant,
+                  display_on_desktop: true
+                %}
+  to: "{% render 'widgets' with block, block: block, current_variant: current_variant,
+    display_on_desktop: true %}"
+  position: 4447..4554
+- from: |-
+    {% render 'widgets' with
+                  block: block,
+                  current_variant: current_variant,
+                  display_on_desktop: true
+                %}
+  to: "{% render 'widgets' with block, block: block, current_variant: current_variant,
+    display_on_desktop: true %}"
+  position: 4609..4716
+- from: |-
+    {% render 'widgets' with
+                  block: block,
+                  current_variant: current_variant,
+                  display_on_desktop: true
+                %}
+  to: "{% render 'widgets' with block, block: block, current_variant: current_variant,
+    display_on_desktop: true %}"
+  position: 4771..4878
+- from: |-
+    {% render 'widgets' with
+                  block: block,
+                  current_variant: current_variant,
+                  display_on_desktop: true
+                %}
+  to: "{% render 'widgets' with block, block: block, current_variant: current_variant,
+    display_on_desktop: true %}"
+  position: 4931..5038
+{%- endcomment -%}

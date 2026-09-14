@@ -65,11 +65,7 @@
           <div class="blog-posts__item">
             {%- if block.settings.article.image -%}
               <a href="{{ block.settings.article.url }}" class="blog-posts__item-image-wrapper hover">
-                {% render 'image' with
-                  image: block.settings.article.image,
-                  wrapper_class: 'blog-posts__item-image',
-                  disable_style: image_is_constrained,
-                %}
+                {% render 'image' with image, image: block.settings.article.image, wrapper_class: 'blog-posts__item-image', disable_style: image_is_constrained %}
               </a>
             {%- endif -%}
 
@@ -243,3 +239,16 @@
     ]
   }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'image' with\r\n                  image: block.settings.article.image,\r\n
+    \                 wrapper_class: 'blog-posts__item-image',\r\n                  disable_style:
+    image_is_constrained,\r\n                %}"
+  to: "{% render 'image' with image, image: block.settings.article.image, wrapper_class:
+    'blog-posts__item-image', disable_style: image_is_constrained %}"
+  position: 2270..2416
+{% endcomment %}

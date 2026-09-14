@@ -17,12 +17,7 @@
     <div class="popup__overlay" data-overlay></div>
     <div class="popup__bar">
       {%- if section.settings.image != blank -%}
-        {% render 'image' with
-          image: section.settings.image,
-          id: 'popup',
-          wrapper_class: 'popup__image',
-          disable_style: true
-        %}
+        {% render 'image' with image, image: section.settings.image, id: 'popup', wrapper_class: 'popup__image', disable_style: true %}
       {%- endif -%}
 
       <div class="popup__bar-overlay"></div>
@@ -33,7 +28,7 @@
         class="popup__close"
         aria-label="{{ 'general.accessibility.close_modal' | t }}"
       >
-        {% render 'icon-button' with icon: 'close-stroke' %}
+        {% render 'icon-button' with icon, icon: 'close-stroke' %}
       </button>
 
       <div class="popup__content">
@@ -69,7 +64,7 @@
                   --color-text-input: {{ section.settings.color_text_button | color_darken: 10 }};
                 "
               >
-                {% render 'newsletter-form' with id: 'popup' %}
+                {% render 'newsletter-form' with id, id: 'popup' %}
               </div>
 
           {%- endcase -%}
@@ -200,3 +195,26 @@
     }
   }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: |-
+    {% render 'image' with
+              image: section.settings.image,
+              id: 'popup',
+              wrapper_class: 'popup__image',
+              disable_style: true
+            %}
+  to: "{% render 'image' with image, image: section.settings.image, id: 'popup', wrapper_class:
+    'popup__image', disable_style: true %}"
+  position: 681..808
+- from: "{% render 'icon-button' with icon: 'close-stroke' %}"
+  to: "{% render 'icon-button' with icon, icon: 'close-stroke' %}"
+  position: 1043..1101
+- from: "{% render 'newsletter-form' with id: 'popup' %}"
+  to: "{% render 'newsletter-form' with id, id: 'popup' %}"
+  position: 2984..3035
+{% endcomment %}

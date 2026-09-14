@@ -17,7 +17,7 @@
     {% unless heading == blank %}
       <div class="testimonials__item-heading-wrapper ff-heading fs-heading-3-base {{ testimonial_heading_type }}">
         <div class="testimonials__item-icon-wrapper">
-          <span class="testimonials__item-icon">&ensp;{% render 'icon' with icon: 'quote' %}</span>
+          <span class="testimonials__item-icon">&ensp;{% render 'icon' with icon, icon: 'quote' %}</span>
         </div>
         <h4 class="testimonials__item-heading">
           {{ heading }}
@@ -44,3 +44,13 @@
     {% endunless %}
   </blockquote>
 {% endif %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'icon' with icon: 'quote' %}"
+  to: "{% render 'icon' with icon, icon: 'quote' %}"
+  position: 805..849
+{% endcomment %}

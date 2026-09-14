@@ -73,7 +73,7 @@
         </div>
       </div>
 
-      {% render 'carousel-navigation' with columns: columns, item_count: carousel_item_count %}
+      {% render 'carousel-navigation' with columns, columns: columns, item_count: carousel_item_count %}
     </div>
   </div>
 </div>
@@ -197,3 +197,15 @@
     ]
   }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'carousel-navigation' with columns: columns, item_count: carousel_item_count
+    %}"
+  to: "{% render 'carousel-navigation' with columns, columns: columns, item_count:
+    carousel_item_count %}"
+  position: 2829..2927
+{% endcomment %}

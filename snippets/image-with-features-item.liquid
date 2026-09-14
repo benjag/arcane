@@ -18,7 +18,7 @@
 >
   {%- if block_has_image -%}
     <div class="image-with-features__item-image">
-      {% render 'image' with image: image, disable_style: true %}
+      {% render 'image' with image, image: image, disable_style: true %}
     </div>
   {%- endif -%}
 
@@ -35,4 +35,13 @@
       {%- endunless -%}
     </div>
   {%- endif -%}
-</div>
+</div>{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'image' with image: image, disable_style: true %}"
+  to: "{% render 'image' with image, image: image, disable_style: true %}"
+  position: 549..615
+{%- endcomment -%}

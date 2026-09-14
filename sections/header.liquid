@@ -43,11 +43,11 @@
       {% endif %}
     >
       {%- if logo != blank -%}
-        {%- render 'image' with image: logo, wrapper_class: 'regular-logo', preload: true -%}
+        {%- render 'image' with image, image: logo, wrapper_class: 'regular-logo', preload: true -%}
       {%- endif -%}
 
       {%- if logo_transparent != blank -%}
-        {%- render 'image' with image: logo_transparent, wrapper_class: 'transparent-logo', preload: true -%}
+        {%- render 'image' with image, image: logo_transparent, wrapper_class: 'transparent-logo', preload: true -%}
       {%- endif -%}
 
       {%- if logo == blank or logo_transparent == blank -%}
@@ -64,7 +64,7 @@
     data-search
     aria-label="{{ 'general.accessibility.open_search' | t }}"
   >
-    {% render 'icon-button' with icon: 'search' %}
+    {% render 'icon-button' with icon, icon: 'search' %}
   </a>
 {%- endcapture -%}
 
@@ -75,16 +75,16 @@
     aria-label="{{ 'general.accessibility.go_account' | t }}"
     >
     {%- if customer.tags contains 'Silver' -%}
-    {% render 'icon-button' with icon: 'silver' %}
+    {% render 'icon-button' with icon, icon: 'silver' %}
 
     {%- elsif customer.tags contains 'Gold' -%}
-    {% render 'icon-button' with icon: 'gold' %}
+    {% render 'icon-button' with icon, icon: 'gold' %}
 
     {%- elsif customer.tags contains 'Platinum' -%}
-    {% render 'icon-button' with icon: 'platinum' %}
+    {% render 'icon-button' with icon, icon: 'platinum' %}
 
     {%- else -%}
-      {% render 'icon-button' with icon: 'vip' %}
+      {% render 'icon-button' with icon, icon: 'vip' %}
     {%- endif -%}
   </a>
 {%- endcapture -%}
@@ -96,7 +96,7 @@
     aria-label="{{ 'general.accessibility.open_cart' | t }}"
     data-js-cart-icon
   >
-    {% render 'icon-button' with icon: 'shopping-cart' %}
+    {% render 'icon-button' with icon, icon: 'shopping-cart' %}
     <div class="header__cart-count" data-js-cart-indicator>
       <span data-js-cart-count>{{ cart.item_count }}</span>
     </div>
@@ -106,7 +106,7 @@
 {%- capture nav -%}
   <nav class="header__links" data-navigation>
     {%- if menu == blank and secondary_menu != blank -%}
-      {% render 'navigation' with menu: secondary_links %}
+      {% render 'navigation' with menu, menu: secondary_links %}
     {%- else -%}
       {% if customer and customer.tags contains 'cheech' and section.settings.cheech_collection_url != blank %}
         <ul class="header__links-list fs-body-base" style="margin-right: var(--spacing-medium);"> 
@@ -115,7 +115,7 @@
          </li> 
        </ul> 
      {% endif %}
-      {% render 'navigation' with menu: links %}
+      {% render 'navigation' with menu, menu: links %}
     {%- endif -%}
 
   </nav>
@@ -123,7 +123,7 @@
 
 {%- capture burger -%}
   <button class="header__menu-icon header__icon-touch header__icon-menu" aria-label="{{ 'general.accessibility.open_menu' | t }}" data-js-menu-button>
-    {% render 'icon-button' with icon: 'menu' %}
+    {% render 'icon-button' with icon, icon: 'menu' %}
   </button>
 {%- endcapture -%}
 
@@ -250,10 +250,10 @@
   </div>
 
   <div class="no-js-menu no-js-menu--desktop">
-    {% render 'no-js-navmenu' with menu: menu, secondary_menu: secondary_menu %}
+    {% render 'no-js-navmenu' with menu, menu: menu, secondary_menu: secondary_menu %}
   </div>
 
-  {% render 'drawer-menu' with menu: menu, secondary_menu: secondary_menu, cheech_collection_url: cheech_collection_url %}
+  {% render 'drawer-menu' with menu, menu: menu, secondary_menu: secondary_menu, cheech_collection_url: cheech_collection_url %}
 </header>
 
 <script>
@@ -399,4 +399,57 @@
       }
     ]
   }
-{% endschema %}
+{% endschema %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- render 'image' with image: logo, wrapper_class: 'regular-logo', preload:
+    true -%}"
+  to: "{%- render 'image' with image, image: logo, wrapper_class: 'regular-logo',
+    preload: true -%}"
+  position: 1626..1718
+- from: "{%- render 'image' with image: logo_transparent, wrapper_class: 'transparent-logo',
+    preload: true -%}"
+  to: "{%- render 'image' with image, image: logo_transparent, wrapper_class: 'transparent-logo',
+    preload: true -%}"
+  position: 1791..1899
+- from: "{% render 'icon-button' with icon: 'search' %}"
+  to: "{% render 'icon-button' with icon, icon: 'search' %}"
+  position: 2328..2380
+- from: "{% render 'icon-button' with icon: 'silver' %}"
+  to: "{% render 'icon-button' with icon, icon: 'silver' %}"
+  position: 2652..2704
+- from: "{% render 'icon-button' with icon: 'gold' %}"
+  to: "{% render 'icon-button' with icon, icon: 'gold' %}"
+  position: 2758..2808
+- from: "{% render 'icon-button' with icon: 'platinum' %}"
+  to: "{% render 'icon-button' with icon, icon: 'platinum' %}"
+  position: 2866..2920
+- from: "{% render 'icon-button' with icon: 'vip' %}"
+  to: "{% render 'icon-button' with icon, icon: 'vip' %}"
+  position: 2945..2994
+- from: "{% render 'icon-button' with icon: 'shopping-cart' %}"
+  to: "{% render 'icon-button' with icon, icon: 'shopping-cart' %}"
+  position: 3240..3299
+- from: "{% render 'navigation' with menu: secondary_links %}"
+  to: "{% render 'navigation' with menu, menu: secondary_links %}"
+  position: 3587..3645
+- from: "{% render 'navigation' with menu: links %}"
+  to: "{% render 'navigation' with menu, menu: links %}"
+  position: 4064..4112
+- from: "{% render 'icon-button' with icon: 'menu' %}"
+  to: "{% render 'icon-button' with icon, icon: 'menu' %}"
+  position: 4339..4389
+- from: "{% render 'no-js-navmenu' with menu: menu, secondary_menu: secondary_menu
+    %}"
+  to: "{% render 'no-js-navmenu' with menu, menu: menu, secondary_menu: secondary_menu
+    %}"
+  position: 8407..8489
+- from: "{% render 'drawer-menu' with menu: menu, secondary_menu: secondary_menu,
+    cheech_collection_url: cheech_collection_url %}"
+  to: "{% render 'drawer-menu' with menu, menu: menu, secondary_menu: secondary_menu,
+    cheech_collection_url: cheech_collection_url %}"
+  position: 8502..8628
+{%- endcomment -%}

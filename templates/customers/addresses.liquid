@@ -33,7 +33,7 @@
             class="addresses__modal-close"
             aria-label="{{ 'general.accessibility.close_modal' | t }}"
           >
-            {% render 'icon-button' with icon: 'close-stroke' %}
+            {% render 'icon-button' with icon, icon: 'close-stroke' %}
           </button>
 
           {% form 'customer_address', customer.new_address %}
@@ -209,7 +209,7 @@
                 class="addresses__modal-close"
                 aria-label="{{ 'general.accessibility.close_modal' | t }}"
               >
-                {% render 'icon-button' with icon: 'close-stroke' %}
+                {% render 'icon-button' with icon, icon: 'close-stroke' %}
               </button>
 
               {% form 'customer_address', address %}
@@ -357,3 +357,16 @@
   </section>
 
 {% endpaginate %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'icon-button' with icon: 'close-stroke' %}"
+  to: "{% render 'icon-button' with icon, icon: 'close-stroke' %}"
+  position: 1539..1597
+- from: "{% render 'icon-button' with icon: 'close-stroke' %}"
+  to: "{% render 'icon-button' with icon, icon: 'close-stroke' %}"
+  position: 8633..8691
+{% endcomment %}

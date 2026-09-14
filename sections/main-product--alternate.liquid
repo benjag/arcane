@@ -42,16 +42,12 @@
     aria-haspopup="true"
   >
     <span class="product__share-text fs-body-small fs-body-bold">
-      {%- render 'icon' with icon: 'social-share' -%}
+      {%- render 'icon' with icon, icon: 'social-share' -%}
       {{ 'general.social.share' | t }}
     </span>
 
     <div class="product__share-icons" aria-hidden="true" aria-label="{{ 'general.social.alt_text.share_menu' | t }}">
-      {% render 'share-icons' with
-        url: product.url,
-        title: product.title,
-        image: product.featured_image
-      %}
+      {% render 'share-icons' with url, url: product.url, title: product.title, image: product.featured_image %}
     </div>
   </button>
 {% endcapture %}
@@ -73,12 +69,7 @@
             data-media-item-id="{{ media.id }}"
             data-product-media-wrapper
           >
-            {% render 'media' with
-              media: media,
-              featured_media: featured_media,
-              enable_product_lightbox: section.settings.enable_product_lightbox,
-              loop_video: section.settings.enable_video_looping,
-            %}
+            {% render 'media' with media, media: media, featured_media: featured_media, enable_product_lightbox: section.settings.enable_product_lightbox, loop_video: section.settings.enable_video_looping %}
           </div>
         {%- else -%}
           <div class="product__media-item placeholder-image">
@@ -98,13 +89,13 @@
           data-shopify-xr-hidden
         >
           <span>
-            {% render 'icon' with icon: '3d' %}
+            {% render 'icon' with icon, icon: '3d' %}
             <span class='product__view-in-space-text'>{{ 'products.product.view_in_space' | t }}</span>
           </span>
         </button>
       {%- endif -%}
 
-      {% render 'product-thumbnails' with featured_media: featured_media %}
+      {% render 'product-thumbnails' with featured_media, featured_media: featured_media %}
     </div>
 
     <div class="product__details">
@@ -264,7 +255,7 @@
                         <div class="select-wrapper">
                           {{ option_values }}
 
-                          {% render 'icon' with icon: 'triangle' %}
+                          {% render 'icon' with icon, icon: 'triangle' %}
                         </div>
                       {%- endunless -%}
                     </div>
@@ -292,7 +283,7 @@
                     data-subtract-quantity
                     aria-label="{{ 'general.accessibility.quantity_add' | t }}"
                   >
-                    {% render 'icon' with icon: 'minus' true, non_focusable: true %}
+                    {% render 'icon' with icon, icon: 'minus', non_focusable: true %}
                   </button>
                   <input
                     type="number" id="Quantity-{{ product.id }}"
@@ -306,7 +297,7 @@
                     data-add-quantity
                     aria-label="{{ 'general.accessibility.quantity_subtract' | t }}"
                   >
-                    {% render 'icon' with icon: 'plus', non_focusable: true %}
+                    {% render 'icon' with icon, icon: 'plus', non_focusable: true %}
                   </button>
 
                 </div>
@@ -355,12 +346,7 @@
                 </div>
               {%- endunless -%}
 
-              {% render 'product-form' with
-                product: product,
-                current_variant: current_variant,
-                show_dynamic_checkout: block.settings.show_dynamic_checkout,
-                custom_text_input_title: custom_text_title
-              %}
+              {% render 'product-form' with product, product: product, current_variant: current_variant, show_dynamic_checkout: block.settings.show_dynamic_checkout, custom_text_input_title: custom_text_title %}
 
               {%- if shop.taxes_included or shop.shipping_policy.body != blank -%}
                 <div class="product__policies rte" data-product-policies>
@@ -382,23 +368,11 @@
               </div>
 
             {%- when 'inventory-counter' -%}
-              {%- render 'inventory-counter' with
-                product: product,
-                show_label: block.settings.show_label,
-                inventory_max: block.settings.inventory_max,
-                low_inventory_threshold: block.settings.low_inventory_threshold,
-                current_variant: current_variant,
-              -%}
+              {%- render 'inventory-counter' with product, product: product, show_label: block.settings.show_label, inventory_max: block.settings.inventory_max, low_inventory_threshold: block.settings.low_inventory_threshold, current_variant: current_variant -%}
 
             {%- when 'accordion' -%}
               {%- assign accordion_class = 'rte--product accordion--product product__block product__block--small' | append: ' accordion--' | append: block.settings.style -%}
-              {%- render 'accordion-block' with
-                block: block,
-                classes: accordion_class,
-                small_text: true,
-                heading: block.settings.heading,
-                content: block.settings.content
-              -%}
+              {%- render 'accordion-block' with block, block: block, classes: accordion_class, small_text: true, heading: block.settings.heading, content: block.settings.content -%}
 
           {%- endcase -%}
         {%- endfor -%}
@@ -426,9 +400,9 @@
   </div>
 
   {%- assign images = product.media | where: 'media_type', 'image' -%}
-  {% render 'lightbox' with images: images %}
+  {% render 'lightbox' with images, images: images %}
   {%- if quick_purchase_bar_enabled -%}
-    {% render 'quick-purchase-bar' with product: product, show_share_buttons: show_share_buttons  %}
+    {% render 'quick-purchase-bar' with product, product: product, show_share_buttons: show_share_buttons %}
   {%- endif -%}
 </div>
 
@@ -747,4 +721,92 @@
       }
     ]
   }
-{% endschema %}
+{% endschema %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- render 'icon' with icon: 'social-share' -%}"
+  to: "{%- render 'icon' with icon, icon: 'social-share' -%}"
+  position: 1637..1690
+- from: |-
+    {% render 'share-icons' with
+            url: product.url,
+            title: product.title,
+            image: product.featured_image
+          %}
+  to: "{% render 'share-icons' with url, url: product.url, title: product.title, image:
+    product.featured_image %}"
+  position: 1867..1973
+- from: |-
+    {% render 'media' with
+                  media: media,
+                  featured_media: featured_media,
+                  enable_product_lightbox: section.settings.enable_product_lightbox,
+                  loop_video: section.settings.enable_video_looping,
+                %}
+  to: "{% render 'media' with media, media: media, featured_media: featured_media,
+    enable_product_lightbox: section.settings.enable_product_lightbox, loop_video:
+    section.settings.enable_video_looping %}"
+  position: 2688..2883
+- from: "{% render 'icon' with icon: '3d' %}"
+  to: "{% render 'icon' with icon, icon: '3d' %}"
+  position: 3527..3568
+- from: "{% render 'product-thumbnails' with featured_media: featured_media %}"
+  to: "{% render 'product-thumbnails' with featured_media, featured_media: featured_media
+    %}"
+  position: 3736..3821
+- from: "{% render 'icon' with icon: 'triangle' %}"
+  to: "{% render 'icon' with icon, icon: 'triangle' %}"
+  position: 11867..11914
+- from: "{% render 'icon' with icon: 'minus' true, non_focusable: true %}"
+  to: "{% render 'icon' with icon, icon: 'minus', non_focusable: true %}"
+  position: 13237..13302
+- from: "{% render 'icon' with icon: 'plus', non_focusable: true %}"
+  to: "{% render 'icon' with icon, icon: 'plus', non_focusable: true %}"
+  position: 13979..14043
+- from: |-
+    {% render 'product-form' with
+                    product: product,
+                    current_variant: current_variant,
+                    show_dynamic_checkout: block.settings.show_dynamic_checkout,
+                    custom_text_input_title: custom_text_title
+                  %}
+  to: "{% render 'product-form' with product, product: product, current_variant: current_variant,
+    show_dynamic_checkout: block.settings.show_dynamic_checkout, custom_text_input_title:
+    custom_text_title %}"
+  position: 15923..16120
+- from: |-
+    {%- render 'inventory-counter' with
+                    product: product,
+                    show_label: block.settings.show_label,
+                    inventory_max: block.settings.inventory_max,
+                    low_inventory_threshold: block.settings.low_inventory_threshold,
+                    current_variant: current_variant,
+                  -%}
+  to: "{%- render 'inventory-counter' with product, product: product, show_label:
+    block.settings.show_label, inventory_max: block.settings.inventory_max, low_inventory_threshold:
+    block.settings.low_inventory_threshold, current_variant: current_variant -%}"
+  position: 17049..17297
+- from: |-
+    {%- render 'accordion-block' with
+                    block: block,
+                    classes: accordion_class,
+                    small_text: true,
+                    heading: block.settings.heading,
+                    content: block.settings.content
+                  -%}
+  to: "{%- render 'accordion-block' with block, block: block, classes: accordion_class,
+    small_text: true, heading: block.settings.heading, content: block.settings.content
+    -%}"
+  position: 17524..17691
+- from: "{% render 'lightbox' with images: images %}"
+  to: "{% render 'lightbox' with images, images: images %}"
+  position: 18501..18552
+- from: "{% render 'quick-purchase-bar' with product: product, show_share_buttons:
+    show_share_buttons  %}"
+  to: "{% render 'quick-purchase-bar' with product, product: product, show_share_buttons:
+    show_share_buttons %}"
+  position: 18597..18701
+{%- endcomment -%}

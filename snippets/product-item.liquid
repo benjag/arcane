@@ -74,24 +74,10 @@
       {%- elsif product.featured_media -%}
         <a class="product-item__image-link" href="{{ product.url }}" aria-label="{{ product.title }}">
           {%- if multiple_images -%}
-            {% render 'image' with
-              id: product.media[0].id,
-              image: product.media[0].preview_image,
-              wrapper_class: 'product-item__image product-item__image--one',
-              disable_style: includes_aspect_ratio
-            %}
-            {% render 'image' with
-              image: product.media[1].preview_image,
-              wrapper_class: 'product-item__image product-item__image--two',
-              disable_style: includes_aspect_ratio
-            %}
+            {% render 'image' with id, id: product.media[0].id, image: product.media[0].preview_image, wrapper_class: 'product-item__image product-item__image--one', disable_style: includes_aspect_ratio %}
+            {% render 'image' with image, image: product.media[1].preview_image, wrapper_class: 'product-item__image product-item__image--two', disable_style: includes_aspect_ratio %}
           {%- else -%}
-            {% render 'image' with
-              id: product.featured_media.id,
-              image: product.featured_media,
-              wrapper_class: 'product-item__image',
-              disable_style: includes_aspect_ratio
-            %}
+            {% render 'image' with id, id: product.featured_media.id, image: product.featured_media, wrapper_class: 'product-item__image', disable_style: includes_aspect_ratio %}
           {%- endif -%}
         </a>
 
@@ -100,7 +86,7 @@
         {%- endunless -%}
 
         {%- if settings.enable_card_hover_options -%}
-          {%- render 'product-item-options' with product: product, product_columns: product_columns -%}
+          {%- render 'product-item-options' with product, product: product, product_columns: product_columns -%}
         {%- endif -%}
       {%- endif -%}
     </div>
@@ -185,7 +171,7 @@
           {%- if settings.show_quick_add_quantity -%}
             <div class="product-item__quick-add-qty-selector">
               <button type="button" class="product-item__quick-add-qty-button product-item__quick-add-qty-button--minus" data-change="decrement" data-quick-add-quantity aria-label="{{ 'general.accessibility.quantity_add' | t }}">
-                {% render 'icon' with icon: 'minus' %}
+                {% render 'icon' with icon, icon: 'minus' %}
               </button>
               <input
                 type="number"
@@ -196,7 +182,7 @@
                 data-quantity-input
               >
               <button type="button" class="product-item__quick-add-qty-button product-item__quick-add-qty-button--plus" data-change="increment" data-quick-add-quantity aria-label="{{ 'general.accessibility.quantity_subtract' | t }}">
-                {% render 'icon' with icon: 'plus' %}
+                {% render 'icon' with icon, icon: 'plus' %}
               </button>
             </div>
           {%- endif -%}
@@ -216,11 +202,11 @@
           >
             <span class="product-item__quick-add-button-text">{{ 'product.add_to_cart' | t }}</span>
             <span class="product-item__quick-add-button-text-height">x</span>
-            {% render 'icon' with icon: 'plus', class: "product-item__quick-add-button-icon" %}
+            {% render 'icon' with icon, icon: 'plus', class: "product-item__quick-add-button-icon" %}
             <div class="btn__loading-wrap">
               <div class="btn__loading-bar"></div>
             </div>
-            {% render 'icon' with icon: 'check', class: "product-item__quick-add-button-check" %}
+            {% render 'icon' with icon, icon: 'check', class: "product-item__quick-add-button-check" %}
           </button>
         </div>
       {%- endif -%}
@@ -231,3 +217,62 @@
     {%- endif -%}
   </div>
 </div>
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: |-
+    {% render 'image' with
+                  id: product.media[0].id,
+                  image: product.media[0].preview_image,
+                  wrapper_class: 'product-item__image product-item__image--one',
+                  disable_style: includes_aspect_ratio
+                %}
+  to: "{% render 'image' with id, id: product.media[0].id, image: product.media[0].preview_image,
+    wrapper_class: 'product-item__image product-item__image--one', disable_style:
+    includes_aspect_ratio %}"
+  position: 2989..3182
+- from: |-
+    {% render 'image' with
+                  image: product.media[1].preview_image,
+                  wrapper_class: 'product-item__image product-item__image--two',
+                  disable_style: includes_aspect_ratio
+                %}
+  to: "{% render 'image' with image, image: product.media[1].preview_image, wrapper_class:
+    'product-item__image product-item__image--two', disable_style: includes_aspect_ratio
+    %}"
+  position: 3195..3366
+- from: |-
+    {% render 'image' with
+                  id: product.featured_media.id,
+                  image: product.featured_media,
+                  wrapper_class: 'product-item__image',
+                  disable_style: includes_aspect_ratio
+                %}
+  to: "{% render 'image' with id, id: product.featured_media.id, image: product.featured_media,
+    wrapper_class: 'product-item__image', disable_style: includes_aspect_ratio %}"
+  position: 3402..3568
+- from: "{%- render 'product-item-options' with product: product, product_columns:
+    product_columns -%}"
+  to: "{%- render 'product-item-options' with product, product: product, product_columns:
+    product_columns -%}"
+  position: 3788..3890
+- from: "{% render 'icon' with icon: 'minus' %}"
+  to: "{% render 'icon' with icon, icon: 'minus' %}"
+  position: 7687..7731
+- from: "{% render 'icon' with icon: 'plus' %}"
+  to: "{% render 'icon' with icon, icon: 'plus' %}"
+  position: 8255..8298
+- from: '{% render ''icon'' with icon: ''plus'', class: "product-item__quick-add-button-icon"
+    %}'
+  to: '{% render ''icon'' with icon, icon: ''plus'', class: "product-item__quick-add-button-icon"
+    %}'
+  position: 9145..9234
+- from: '{% render ''icon'' with icon: ''check'', class: "product-item__quick-add-button-check"
+    %}'
+  to: '{% render ''icon'' with icon, icon: ''check'', class: "product-item__quick-add-button-check"
+    %}'
+  position: 9361..9452
+{% endcomment %}

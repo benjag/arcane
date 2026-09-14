@@ -36,13 +36,13 @@
         >
           {{ link.title }}
           <span class="header__links-icon">
-            {% render 'icon' with icon: 'chevron' %}
+            {% render 'icon' with icon, icon: 'chevron' %}
           </span>
         </button>
 
         {%- liquid
           if has_children
-            render 'navigation-submenu' with menu: link.links, depth: 1
+            render 'navigation-submenu' with menu, menu: link.links, depth: 1
           endif
 
           assign has_children = false
@@ -61,3 +61,17 @@
   {% endfor %}
 </ul>
 
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'icon' with icon: 'chevron' %}"
+  to: "{% render 'icon' with icon, icon: 'chevron' %}"
+  position: 1055..1101
+- from: "            render 'navigation-submenu' with menu: link.links, depth: 1"
+  to: "            render 'navigation-submenu' with menu, menu: link.links, depth:
+    1"
+  position: 1184..1261
+{% endcomment %}

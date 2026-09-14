@@ -22,7 +22,7 @@
         aria-hidden="true"
       >
         <button type="button" class="filter-drawer__close" aria-label="{{ 'general.accessibility.close_modal' | t }}" data-close-icon>
-          {% render 'icon-button' with icon: 'close-stroke' %}
+          {% render 'icon-button' with icon, icon: 'close-stroke' %}
         </button>
 
         <div class="filter-drawer__content" data-scroll-lock-ignore>
@@ -63,23 +63,11 @@
                       -%}
 
                       {%- if swatch_options contains group_name -%}
-                        {% render 'filter-item' with
-                          type: 'swatch',
-                          forloop: forloop,
-                          filter_value: filter_value
-                        %}
+                        {% render 'filter-item' with type, type: 'swatch', forloop: forloop, filter_value: filter_value %}
                       {%- elsif chip_options contains group_name -%}
-                        {% render 'filter-item' with
-                          type: 'chip',
-                          forloop: forloop,
-                          filter_value: filter_value
-                        %}
+                        {% render 'filter-item' with type, type: 'chip', forloop: forloop, filter_value: filter_value %}
                       {%- else -%}
-                        {% render 'filter-item' with
-                          type: 'checkbox',
-                          forloop: forloop,
-                          filter_value: filter_value
-                        %}
+                        {% render 'filter-item' with type, type: 'checkbox', forloop: forloop, filter_value: filter_value %}
                       {%- endif -%}
                     {%- endfor -%}
                   </ul>
@@ -152,7 +140,7 @@
       >
 
         <button type="button" class="filter-drawer__close" aria-label="{{ 'general.accessibility.close_modal' | t }}" data-close-icon>
-          {% render 'icon-button' with icon: 'close-stroke' %}
+          {% render 'icon-button' with icon, icon: 'close-stroke' %}
         </button>
         <div class="filter-drawer__content" data-scroll-lock-ignore>
           <div class="filter-drawer__heading">
@@ -193,3 +181,34 @@
 
   </form>
 {%- endif -%}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'icon-button' with icon: 'close-stroke' %}"
+  to: "{% render 'icon-button' with icon, icon: 'close-stroke' %}"
+  position: 1001..1059
+- from: "{% render 'filter-item' with\r\n                          type: 'swatch',\r\n
+    \                         forloop: forloop,\r\n                          filter_value:
+    filter_value\r\n                        %}"
+  to: "{% render 'filter-item' with type, type: 'swatch', forloop: forloop, filter_value:
+    filter_value %}"
+  position: 3166..3264
+- from: "{% render 'filter-item' with\r\n                          type: 'chip',\r\n
+    \                         forloop: forloop,\r\n                          filter_value:
+    filter_value\r\n                        %}"
+  to: "{% render 'filter-item' with type, type: 'chip', forloop: forloop, filter_value:
+    filter_value %}"
+  position: 3360..3456
+- from: "{% render 'filter-item' with\r\n                          type: 'checkbox',\r\n
+    \                         forloop: forloop,\r\n                          filter_value:
+    filter_value\r\n                        %}"
+  to: "{% render 'filter-item' with type, type: 'checkbox', forloop: forloop, filter_value:
+    filter_value %}"
+  position: 3518..3618
+- from: "{% render 'icon-button' with icon: 'close-stroke' %}"
+  to: "{% render 'icon-button' with icon, icon: 'close-stroke' %}"
+  position: 7441..7499
+{% endcomment %}

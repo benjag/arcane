@@ -17,7 +17,7 @@
         {%- else -%}
           {{ value.label | escape }}
         {%- endif -%}
-        {%- render 'icon' with icon: 'close-stroke' -%}
+        {%- render 'icon' with icon, icon: 'close-stroke' -%}
       </a>
     {%- endfor -%}
 
@@ -25,7 +25,7 @@
       {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
         <a href="{{ value.url_to_remove }}" class="active-filters__active-filter no-transition" data-remove-range>
           {%- if filter.min_value.value -%}{{ filter.min_value.value | money }}{%- else -%}{{ 0 | money }}{%- endif -%}&nbsp;-&nbsp;{%- if filter.max_value.value -%}{{ filter.max_value.value | money }}{%- else -%}{{ filter.range_max | money }}{%- endif -%}
-          {%- render 'icon' with icon: 'close-stroke' -%}
+          {%- render 'icon' with icon, icon: 'close-stroke' -%}
         </a>
       {%- endif -%}
     {% endif %}
@@ -42,7 +42,7 @@
     {%- endfor -%}
     <a href="#" class="active-filters__active-filter no-transition" data-remove-filter data-filter="filter-{{ label | handleize | escape }}" data-name="sort_by" data-value="{{ value }}">
       Sort: {{ label }}
-      {%- render 'icon' with icon: 'close-stroke' -%}
+      {%- render 'icon' with icon, icon: 'close-stroke' -%}
     </a>
   {%- endif -%}
 
@@ -50,3 +50,19 @@
     <span>{{ 'filters.clear_filters' | t }}</span>
   </a>
 </div>
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- render 'icon' with icon: 'close-stroke' -%}"
+  to: "{%- render 'icon' with icon, icon: 'close-stroke' -%}"
+  position: 853..906
+- from: "{%- render 'icon' with icon: 'close-stroke' -%}"
+  to: "{%- render 'icon' with icon, icon: 'close-stroke' -%}"
+  position: 1450..1503
+- from: "{%- render 'icon' with icon: 'close-stroke' -%}"
+  to: "{%- render 'icon' with icon, icon: 'close-stroke' -%}"
+  position: 2316..2369
+{% endcomment %}

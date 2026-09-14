@@ -8,17 +8,13 @@
 
 <div class="quick-purchase-bar" data-quick-purchase-bar>
   <button type="button" class="quick-purchase-bar__hide btn" aria-label="{{ 'general.accessibility.mobile_filters' | t }}" data-mobile-hide>
-    {% render 'icon' with icon: 'triangle' %}
+    {% render 'icon' with icon, icon: 'triangle' %}
   </button>
 
   <div class="quick-purchase-bar__inner">
     <div class="quick-purchase-bar__product">
       {%- if featured_media != blank -%}
-        {%- render 'image' with
-          image: featured_media,
-          wrapper_class: 'quick-purchase-bar__product-image',
-          disable_style: true
-        -%}
+        {%- render 'image' with image, image: featured_media, wrapper_class: 'quick-purchase-bar__product-image', disable_style: true -%}
       {%- endif -%}
 
       <div class="quick-purchase-bar__product-text">
@@ -44,7 +40,7 @@
     </div>
     <div class="quick-purchase-bar__purchase">
       {%- if show_share_buttons -%}
-        {%- render 'share-icons' with title: product.title, url: product.url, image: product.featured_media -%}
+        {%- render 'share-icons' with title, title: product.title, url: product.url, image: product.featured_media -%}
       {%- endif -%}
 
       <button type="button" class="quick-purchase-bar__purchase-button btn btn--small btn--primary" data-quick-purchase-button>
@@ -53,4 +49,27 @@
       <a href="/checkout" class="quick-purchase-bar__purchase-link"></a>
     </div>
   </div>
-</div>
+</div>{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'icon' with icon: 'triangle' %}"
+  to: "{% render 'icon' with icon, icon: 'triangle' %}"
+  position: 587..634
+- from: |-
+    {%- render 'image' with
+              image: featured_media,
+              wrapper_class: 'quick-purchase-bar__product-image',
+              disable_style: true
+            -%}
+  to: "{%- render 'image' with image, image: featured_media, wrapper_class: 'quick-purchase-bar__product-image',
+    disable_style: true -%}"
+  position: 785..914
+- from: "{%- render 'share-icons' with title: product.title, url: product.url, image:
+    product.featured_media -%}"
+  to: "{%- render 'share-icons' with title, title: product.title, url: product.url,
+    image: product.featured_media -%}"
+  position: 1863..1973
+{%- endcomment -%}

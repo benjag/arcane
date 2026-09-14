@@ -55,14 +55,14 @@
             {%- for product in recommendations.products -%}
               <script type="application/json" class="bold-product-json">{{ product | json }}</script>
               <div class="recommended-products__slide" data-slide>
-                {% render 'product-item' with product: product, aspect_ratio: section.settings.aspect_ratio, product_columns: columns %}
+                {% render 'product-item' with product, product: product, aspect_ratio: section.settings.aspect_ratio, product_columns: columns %}
               </div>
             {%- endfor -%}
           </div>
         {%- endif -%}
       </div>
 
-      {% render 'carousel-navigation' with columns: columns, item_count: recommendations.products_count %}
+      {% render 'carousel-navigation' with columns, columns: columns, item_count: recommendations.products_count %}
     </div>
   </div>
 </div>
@@ -178,4 +178,20 @@
     ],
     "templates": ["product"]
   }
-{% endschema %}
+{% endschema %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'product-item' with product: product, aspect_ratio: section.settings.aspect_ratio,
+    product_columns: columns %}"
+  to: "{% render 'product-item' with product, product: product, aspect_ratio: section.settings.aspect_ratio,
+    product_columns: columns %}"
+  position: 1914..2043
+- from: "{% render 'carousel-navigation' with columns: columns, item_count: recommendations.products_count
+    %}"
+  to: "{% render 'carousel-navigation' with columns, columns: columns, item_count:
+    recommendations.products_count %}"
+  position: 2151..2260
+{%- endcomment -%}

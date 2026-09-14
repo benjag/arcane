@@ -64,16 +64,7 @@
       <div class="social-proof__slider-wrapper">
         <div class="social-proof__slider" data-slider>
           {%- for block in section.blocks -%}
-            {%- render 'social-proof-item' with
-              forloop: forloop,
-              block: block,
-              link: block.settings.link,
-              image: block.settings.image,
-              aspect_ratio: section.settings.aspect_ratio,
-              likes: block.settings.likes,
-              account: block.settings.account,
-              caption: block.settings.caption,
-            -%}
+            {%- render 'social-proof-item' with forloop, forloop: forloop, block: block, link: block.settings.link, image: block.settings.image, aspect_ratio: section.settings.aspect_ratio, likes: block.settings.likes, account: block.settings.account, caption: block.settings.caption -%}
           {%- else -%}
             {% for i in (1..minimum_items_for_wrap_around) %}
               {{ placeholder_item }}
@@ -82,7 +73,7 @@
         </div>
       </div>
 
-      {% render 'carousel-navigation' with columns: column_count, item_count: carousel_item_count %}
+      {% render 'carousel-navigation' with columns, columns: column_count, item_count: carousel_item_count %}
     </div>
   </div>
 </div>
@@ -253,3 +244,25 @@
     ]
   }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- render 'social-proof-item' with\r\n              forloop: forloop,\r\n
+    \             block: block,\r\n              link: block.settings.link,\r\n              image:
+    block.settings.image,\r\n              aspect_ratio: section.settings.aspect_ratio,\r\n
+    \             likes: block.settings.likes,\r\n              account: block.settings.account,\r\n
+    \             caption: block.settings.caption,\r\n            -%}"
+  to: "{%- render 'social-proof-item' with forloop, forloop: forloop, block: block,
+    link: block.settings.link, image: block.settings.image, aspect_ratio: section.settings.aspect_ratio,
+    likes: block.settings.likes, account: block.settings.account, caption: block.settings.caption
+    -%}"
+  position: 2008..2283
+- from: "{% render 'carousel-navigation' with columns: column_count, item_count: carousel_item_count
+    %}"
+  to: "{% render 'carousel-navigation' with columns, columns: column_count, item_count:
+    carousel_item_count %}"
+  position: 2500..2603
+{% endcomment %}

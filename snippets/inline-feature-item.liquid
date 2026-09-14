@@ -2,11 +2,7 @@
   <div class="inline-features__item-inner">
     {%- if show_image -%}
       {%- if image -%}
-        {% render 'image' with
-          image: image,
-          wrapper_class: 'inline-features__item-image',
-          disable_style: true,
-        %}
+        {% render 'image' with image, image: image, wrapper_class: 'inline-features__item-image', disable_style: true %}
       {%- else -%}
         <div class="inline-features__item-image placeholder-image">
           {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
@@ -35,4 +31,19 @@
       </div>
     {%- endif -%}
   </div>
-</div>
+</div>{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: |-
+    {% render 'image' with
+              image: image,
+              wrapper_class: 'inline-features__item-image',
+              disable_style: true,
+            %}
+  to: "{% render 'image' with image, image: image, wrapper_class: 'inline-features__item-image',
+    disable_style: true %}"
+  position: 137..249
+{%- endcomment -%}

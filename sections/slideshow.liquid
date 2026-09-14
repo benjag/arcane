@@ -40,35 +40,11 @@
     data-autoplay="{{ section.settings.duration_autoplay | times: 1000 }}"
   >
     {%- for block in section.blocks -%}
-      {%- render 'slideshow-item' with
-        block: block,
-        forloop: forloop,
-
-        image_aspect: section.settings.image_aspect,
-        desktop_image: block.settings.desktop_image,
-        mobile_image: block.settings.mobile_image,
-        focal_point: block.settings.focal_point,
-        mobile_focal_point: block.settings.mobile_focal_point,
-        alignment: block.settings.alignment,
-
-        heading: block.settings.title,
-        subheading: block.settings.subheading,
-        link: block.settings.link,
-        link_text: block.settings.link_text,
-
-        max_width_subheading: block.settings.max_width_subheading,
-        heading_text_size: block.settings.heading_text_size,
-        overlay_shadow: block.settings.overlay_shadow,
-        color_text: block.settings.color_text,
-        color_text_button: block.settings.color_text_button,
-        color_background_button: block.settings.color_background_button,
-        color_overlay: block.settings.color_overlay,
-        overlay_opacity: block.settings.overlay_opacity,
-      -%}
+      {%- render 'slideshow-item' with block, block: block, forloop: forloop, image_aspect: section.settings.image_aspect, desktop_image: block.settings.desktop_image, mobile_image: block.settings.mobile_image, focal_point: block.settings.focal_point, mobile_focal_point: block.settings.mobile_focal_point, alignment: block.settings.alignment, heading: block.settings.title, subheading: block.settings.subheading, link: block.settings.link, link_text: block.settings.link_text, max_width_subheading: block.settings.max_width_subheading, heading_text_size: block.settings.heading_text_size, overlay_shadow: block.settings.overlay_shadow, color_text: block.settings.color_text, color_text_button: block.settings.color_text_button, color_background_button: block.settings.color_background_button, color_overlay: block.settings.color_overlay, overlay_opacity: block.settings.overlay_opacity -%}
     {%- endfor -%}
   </div>
 
-  {%- render 'navigation-dots' with dot_count: dot_count -%}
+  {%- render 'navigation-dots' with dot_count, dot_count: dot_count -%}
 </div>
 
 {% schema %}
@@ -302,4 +278,38 @@
       }
     ]
   }
-{% endschema %}
+{% endschema %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- render 'slideshow-item' with\r\n        block: block,\r\n        forloop:
+    forloop,\r\n\r\n        image_aspect: section.settings.image_aspect,\r\n        desktop_image:
+    block.settings.desktop_image,\r\n        mobile_image: block.settings.mobile_image,\r\n
+    \       focal_point: block.settings.focal_point,\r\n        mobile_focal_point:
+    block.settings.mobile_focal_point,\r\n        alignment: block.settings.alignment,\r\n\r\n
+    \       heading: block.settings.title,\r\n        subheading: block.settings.subheading,\r\n
+    \       link: block.settings.link,\r\n        link_text: block.settings.link_text,\r\n\r\n
+    \       max_width_subheading: block.settings.max_width_subheading,\r\n        heading_text_size:
+    block.settings.heading_text_size,\r\n        overlay_shadow: block.settings.overlay_shadow,\r\n
+    \       color_text: block.settings.color_text,\r\n        color_text_button: block.settings.color_text_button,\r\n
+    \       color_background_button: block.settings.color_background_button,\r\n        color_overlay:
+    block.settings.color_overlay,\r\n        overlay_opacity: block.settings.overlay_opacity,\r\n
+    \     -%}"
+  to: "{%- render 'slideshow-item' with block, block: block, forloop: forloop, image_aspect:
+    section.settings.image_aspect, desktop_image: block.settings.desktop_image, mobile_image:
+    block.settings.mobile_image, focal_point: block.settings.focal_point, mobile_focal_point:
+    block.settings.mobile_focal_point, alignment: block.settings.alignment, heading:
+    block.settings.title, subheading: block.settings.subheading, link: block.settings.link,
+    link_text: block.settings.link_text, max_width_subheading: block.settings.max_width_subheading,
+    heading_text_size: block.settings.heading_text_size, overlay_shadow: block.settings.overlay_shadow,
+    color_text: block.settings.color_text, color_text_button: block.settings.color_text_button,
+    color_background_button: block.settings.color_background_button, color_overlay:
+    block.settings.color_overlay, overlay_opacity: block.settings.overlay_opacity
+    -%}"
+  position: 1064..1948
+- from: "{%- render 'navigation-dots' with dot_count: dot_count -%}"
+  to: "{%- render 'navigation-dots' with dot_count, dot_count: dot_count -%}"
+  position: 1984..2053
+{%- endcomment -%}

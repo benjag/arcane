@@ -34,16 +34,12 @@
     aria-haspopup="true"
   >
     <span class="product__share-text fs-body-small fs-body-bold">
-      {%- render 'icon' with icon: 'social-share' -%}
+      {%- render 'icon' with icon, icon: 'social-share' -%}
       {{ 'general.social.share' | t }}
     </span>
 
     <div class="product__share-icons" aria-hidden="true" aria-label="{{ 'general.social.alt_text.share_menu' | t }}">
-      {% render 'share-icons' with
-        url: product.url,
-        title: product.title,
-        image: product.featured_image
-      %}
+      {% render 'share-icons' with url, url: product.url, title: product.title, image: product.featured_image %}
     </div>
   </button>
 {% endcapture %}
@@ -80,13 +76,7 @@
               data-media-item-id="{{ media.id }}"
               data-product-media-wrapper
             >
-              {% render 'media' with media: media,
-                featured_media: featured_media,
-                featured: true,
-                link: product.url,
-                enable_product_lightbox: section.settings.enable_product_lightbox,
-                loop_video: section.settings.enable_video_looping,
-              %}
+              {% render 'media' with media, media: media, featured_media: featured_media, featured: true, link: product.url, enable_product_lightbox: section.settings.enable_product_lightbox, loop_video: section.settings.enable_video_looping %}
             </div>
           {%- endfor -%}
         {%- else -%}
@@ -275,7 +265,7 @@
                             <div class="select-wrapper">
                               {{ option_values }}
 
-                              {% render 'icon' with icon: 'triangle' %}
+                              {% render 'icon' with icon, icon: 'triangle' %}
                             </div>
                           {%- endunless -%}
                         </div>
@@ -304,7 +294,7 @@
                         data-subtract-quantity
                         aria-label="{{ 'general.accessibility.quantity_add' | t }}"
                       >
-                        {% render 'icon' with icon: 'minus' true, non_focusable: true %}
+                        {% render 'icon' with icon, icon: 'minus', non_focusable: true %}
                       </button>
                       <input
                         type="number" id="Quantity-Input-{{ product.id }}"
@@ -318,7 +308,7 @@
                         data-add-quantity
                         aria-label="{{ 'general.accessibility.quantity_subtract' | t }}"
                       >
-                        {% render 'icon' with icon: 'plus', non_focusable: true %}
+                        {% render 'icon' with icon, icon: 'plus', non_focusable: true %}
                       </button>
 
                     </div>
@@ -370,12 +360,7 @@
                     </div>
                   {%- endunless -%}
 
-                  {% render 'product-form' with
-                    product: product,
-                    current_variant: current_variant,
-                    show_dynamic_checkout: block.settings.show_dynamic_checkout,
-                    custom_text_input_title: custom_text_title
-                  %}
+                  {% render 'product-form' with product, product: product, current_variant: current_variant, show_dynamic_checkout: block.settings.show_dynamic_checkout, custom_text_input_title: custom_text_title %}
 
                   {%- if shop.taxes_included or shop.shipping_policy.body != blank -%}
                     <div class="product__policies rte" data-product-policies>
@@ -407,23 +392,11 @@
                 {%- endif -%}
 
               {%- when 'inventory-counter' -%}
-                {%- render 'inventory-counter' with
-                  product: product,
-                  show_label: block.settings.show_label,
-                  inventory_max: block.settings.inventory_max,
-                  low_inventory_threshold: block.settings.low_inventory_threshold,
-                  current_variant: current_variant,
-                -%}
+                {%- render 'inventory-counter' with product, product: product, show_label: block.settings.show_label, inventory_max: block.settings.inventory_max, low_inventory_threshold: block.settings.low_inventory_threshold, current_variant: current_variant -%}
 
               {%- when 'accordion' -%}
                 {%- assign accordion_class = 'rte--product accordion--product product__block product__block--small' | append: ' accordion--' | append: block.settings.style -%}
-                {%- render 'accordion-block' with
-                  block: block,
-                  classes: accordion_class,
-                  small_text: true,
-                  heading: block.settings.heading,
-                  content: block.settings.content
-                -%}
+                {%- render 'accordion-block' with block, block: block, classes: accordion_class, small_text: true, heading: block.settings.heading, content: block.settings.content -%}
             {%- endcase -%}
           {%- endfor -%}
 
@@ -436,7 +409,7 @@
   </div>
 
   {%- assign images = product.media | where: 'media_type', 'image' -%}
-  {% render 'lightbox' with images: images %}
+  {% render 'lightbox' with images, images: images %}
 </div>
 
 {% schema %}
@@ -831,3 +804,62 @@
   {% endif %}
 }
 </script>
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- render 'icon' with icon: 'social-share' -%}"
+  to: "{%- render 'icon' with icon, icon: 'social-share' -%}"
+  position: 1377..1430
+- from: "{% render 'share-icons' with\r\n        url: product.url,\r\n        title:
+    product.title,\r\n        image: product.featured_image\r\n      %}"
+  to: "{% render 'share-icons' with url, url: product.url, title: product.title, image:
+    product.featured_image %}"
+  position: 1612..1718
+- from: "{% render 'media' with media: media,\r\n                featured_media: featured_media,\r\n
+    \               featured: true,\r\n                link: product.url,\r\n                enable_product_lightbox:
+    section.settings.enable_product_lightbox,\r\n                loop_video: section.settings.enable_video_looping,\r\n
+    \             %}"
+  to: "{% render 'media' with media, media: media, featured_media: featured_media,
+    featured: true, link: product.url, enable_product_lightbox: section.settings.enable_product_lightbox,
+    loop_video: section.settings.enable_video_looping %}"
+  position: 2832..3062
+- from: "{% render 'icon' with icon: 'triangle' %}"
+  to: "{% render 'icon' with icon, icon: 'triangle' %}"
+  position: 13008..13055
+- from: "{% render 'icon' with icon: 'minus' true, non_focusable: true %}"
+  to: "{% render 'icon' with icon, icon: 'minus', non_focusable: true %}"
+  position: 14585..14650
+- from: "{% render 'icon' with icon: 'plus', non_focusable: true %}"
+  to: "{% render 'icon' with icon, icon: 'plus', non_focusable: true %}"
+  position: 15387..15451
+- from: "{% render 'product-form' with\r\n                    product: product,\r\n
+    \                   current_variant: current_variant,\r\n                    show_dynamic_checkout:
+    block.settings.show_dynamic_checkout,\r\n                    custom_text_input_title:
+    custom_text_title\r\n                  %}"
+  to: "{% render 'product-form' with product, product: product, current_variant: current_variant,
+    show_dynamic_checkout: block.settings.show_dynamic_checkout, custom_text_input_title:
+    custom_text_title %}"
+  position: 17670..17867
+- from: "{%- render 'inventory-counter' with\r\n                  product: product,\r\n
+    \                 show_label: block.settings.show_label,\r\n                  inventory_max:
+    block.settings.inventory_max,\r\n                  low_inventory_threshold: block.settings.low_inventory_threshold,\r\n
+    \                 current_variant: current_variant,\r\n                -%}"
+  to: "{%- render 'inventory-counter' with product, product: product, show_label:
+    block.settings.show_label, inventory_max: block.settings.inventory_max, low_inventory_threshold:
+    block.settings.low_inventory_threshold, current_variant: current_variant -%}"
+  position: 19372..19620
+- from: "{%- render 'accordion-block' with\r\n                  block: block,\r\n
+    \                 classes: accordion_class,\r\n                  small_text: true,\r\n
+    \                 heading: block.settings.heading,\r\n                  content:
+    block.settings.content\r\n                -%}"
+  to: "{%- render 'accordion-block' with block, block: block, classes: accordion_class,
+    small_text: true, heading: block.settings.heading, content: block.settings.content
+    -%}"
+  position: 19857..20024
+- from: "{% render 'lightbox' with images: images %}"
+  to: "{% render 'lightbox' with images, images: images %}"
+  position: 20420..20471
+{% endcomment %}

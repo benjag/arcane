@@ -101,12 +101,7 @@
             data-media-item-id="{{ media.id }}"
             data-product-media-wrapper
           >
-            {% render 'media' with
-              media: media,
-              featured_media: featured_media,
-              enable_product_lightbox: section.settings.enable_product_lightbox,
-              loop_video: section.settings.enable_video_looping,
-            %}
+            {% render 'media' with media, media: media, featured_media: featured_media, enable_product_lightbox: section.settings.enable_product_lightbox, loop_video: section.settings.enable_video_looping %}
           </div>
         {%- else -%}
           <div class="product__media-item placeholder-image">
@@ -126,44 +121,30 @@
           data-shopify-xr-hidden
         >
           <span>
-            {% render 'icon' with icon: '3d' %}
+            {% render 'icon' with icon, icon: '3d' %}
             <span class='product__view-in-space-text'>{{ 'products.product.view_in_space' | t }}</span>
           </span>
         </button>
       {%- endif -%}
 
-      {% render 'product-thumbnails' with featured_media: featured_media %}
+      {% render 'product-thumbnails' with featured_media, featured_media: featured_media %}
 
       {%- for block in section.blocks -%}
         {% case block.type %}
           {%- when 'accordion' -%}
             {%- if block.settings.column == 'left' -%}
               {%- assign accordion_class = accordion_base_class | append: ' accordion--product product--column-left  product__block product__block--small' -%}
-              {%- render 'accordion-block' with
-                block: block,
-                classes: accordion_class,
-                small_text: true,
-                heading: block.settings.heading,
-                content: block.settings.content
-              -%}
+              {%- render 'accordion-block' with block, block: block, classes: accordion_class, small_text: true, heading: block.settings.heading, content: block.settings.content -%}
             {%- endif -%}
 
           {%- when 'payment_widget' -%}
             {%- if block.settings.column == 'left' -%}
-              {% render 'widgets-accordion' with
-                block: block,
-                style: block.settings.style,
-                classes: 'product__block product__block--small product--column-left'
-              %}
+              {% render 'widgets-accordion' with block, block: block, style: block.settings.style, classes: 'product__block product__block--small product--column-left' %}
             {%- endif -%}
 
           {%- when 'security_widget' -%}
             {%- if block.settings.column == 'left' -%}
-              {% render 'widgets-accordion' with
-                block: block,
-                style: block.settings.style,
-                classes: 'product__block product__block--small product--column-left'
-              %}
+              {% render 'widgets-accordion' with block, block: block, style: block.settings.style, classes: 'product__block product__block--small product--column-left' %}
             {%- endif -%}
 
           {%- when 'shipping_widget' -%}
@@ -342,7 +323,7 @@
                         <div class="select-wrapper">
                           {{ option_values }}
 
-                          {% render 'icon' with icon: 'triangle' %}
+                          {% render 'icon' with icon, icon: 'triangle' %}
                         </div>
                       {%- endunless -%}
                     </div>
@@ -370,7 +351,7 @@
                     data-subtract-quantity
                     aria-label="{{ 'general.accessibility.quantity_add' | t }}"
                   >
-                    {% render 'icon' with icon: 'minus' true, non_focusable: true %}
+                    {% render 'icon' with icon, icon: 'minus', non_focusable: true %}
                   </button>
                   <input
                     type="number" id="Quantity-Input-{{ product.id }}" value="1" min="1" pattern="[0-9]*"
@@ -384,7 +365,7 @@
                     data-add-quantity
                     aria-label="{{ 'general.accessibility.quantity_subtract' | t }}"
                   >
-                    {% render 'icon' with icon: 'plus', non_focusable: true %}
+                    {% render 'icon' with icon, icon: 'plus', non_focusable: true %}
                   </button>
 
                 </div>
@@ -434,12 +415,7 @@
                 </div>
               {%- endunless -%}
 
-              {% render 'product-form' with
-                product: product,
-                current_variant: current_variant,
-                show_dynamic_checkout: block.settings.show_dynamic_checkout,
-                custom_text_input_title: custom_text_title
-              %}
+              {% render 'product-form' with product, product: product, current_variant: current_variant, show_dynamic_checkout: block.settings.show_dynamic_checkout, custom_text_input_title: custom_text_title %}
 
               {%- if shop.taxes_included or shop.shipping_policy.body != blank -%}
                 <div class="product__policies rte" data-product-policies>
@@ -463,13 +439,7 @@
                   assign accordion_class = accordion_base_class | append: ' accordion--' | append: block.settings.style | append: ' accordion--product product__block product__block--small'
                 -%}
 
-                {%- render 'accordion-block' with
-                  block: block,
-                  classes: accordion_class,
-                  small_text: true,
-                  heading: description_title,
-                  content: product.description
-                -%}
+                {%- render 'accordion-block' with block, block: block, classes: accordion_class, small_text: true, heading: description_title, content: product.description -%}
               {%- endif -%}
 
             {%- when 'text' -%}
@@ -481,51 +451,27 @@
               {{ social_share }}
 
             {%- when 'inventory-counter' -%}
-              {%- render 'inventory-counter' with
-                product: product,
-                show_label: block.settings.show_label,
-                inventory_max: block.settings.inventory_max,
-                low_inventory_threshold: block.settings.low_inventory_threshold,
-                current_variant: current_variant,
-              -%}
+              {%- render 'inventory-counter' with product, product: product, show_label: block.settings.show_label, inventory_max: block.settings.inventory_max, low_inventory_threshold: block.settings.low_inventory_threshold, current_variant: current_variant -%}
 
             {%- when 'accordion' -%}
               {%- if block.settings.column == 'right' -%}
                 {%- assign accordion_class = accordion_base_class | append: ' accordion--' | append: block.settings.style | append: ' accordion--product product__block product__block--small' -%}
-                {%- render 'accordion-block' with
-                  block: block,
-                  classes: accordion_class,
-                  small_text: true,
-                  heading: block.settings.heading,
-                  content: block.settings.content
-                -%}
+                {%- render 'accordion-block' with block, block: block, classes: accordion_class, small_text: true, heading: block.settings.heading, content: block.settings.content -%}
               {%- endif -%}
 
             {%- when 'payment_widget' -%}
               {%- if block.settings.column == 'right' -%}
-                {% render 'widgets-accordion' with
-                  block: block,
-                  style: block.settings.style,
-                  classes: 'product__block product__block--small',
-                %}
+                {% render 'widgets-accordion' with block, block: block, style: block.settings.style, classes: 'product__block product__block--small' %}
               {%- endif -%}
 
             {%- when 'security_widget' -%}
               {%- if block.settings.column == 'right' -%}
-                {% render 'widgets-accordion' with
-                  block: block,
-                  style: block.settings.style,
-                  classes: 'product__block product__block--small',
-                %}
+                {% render 'widgets-accordion' with block, block: block, style: block.settings.style, classes: 'product__block product__block--small' %}
               {%- endif -%}
 
             {%- when 'shipping_widget' -%}
               {%- if block.settings.column == 'right' -%}
-                {% render 'widgets-accordion' with
-                  block: block,
-                  style: block.settings.style,
-                  classes: 'product__block product__block--small',
-                %}
+                {% render 'widgets-accordion' with block, block: block, style: block.settings.style, classes: 'product__block product__block--small' %}
               {%- endif -%}
 
           {%- endcase -%}
@@ -563,9 +509,9 @@
   {%- endif -%}
 
   {%- assign images = product.media | where: 'media_type', 'image' -%}
-  {% render 'lightbox' with images: images %}
+  {% render 'lightbox' with images, images: images %}
   {%- if quick_purchase_bar_enabled -%}
-    {% render 'quick-purchase-bar' with product: product, show_share_buttons: show_share_buttons  %}
+    {% render 'quick-purchase-bar' with product, product: product, show_share_buttons: show_share_buttons %}
   {%- endif -%}
 </div>
 
@@ -1178,4 +1124,148 @@
       }
     ]
   }
-{% endschema %}
+{% endschema %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: |-
+    {% render 'media' with
+                  media: media,
+                  featured_media: featured_media,
+                  enable_product_lightbox: section.settings.enable_product_lightbox,
+                  loop_video: section.settings.enable_video_looping,
+                %}
+  to: "{% render 'media' with media, media: media, featured_media: featured_media,
+    enable_product_lightbox: section.settings.enable_product_lightbox, loop_video:
+    section.settings.enable_video_looping %}"
+  position: 4326..4521
+- from: "{% render 'icon' with icon: '3d' %}"
+  to: "{% render 'icon' with icon, icon: '3d' %}"
+  position: 5165..5206
+- from: "{% render 'product-thumbnails' with featured_media: featured_media %}"
+  to: "{% render 'product-thumbnails' with featured_media, featured_media: featured_media
+    %}"
+  position: 5374..5459
+- from: |-
+    {%- render 'accordion-block' with
+                    block: block,
+                    classes: accordion_class,
+                    small_text: true,
+                    heading: block.settings.heading,
+                    content: block.settings.content
+                  -%}
+  to: "{%- render 'accordion-block' with block, block: block, classes: accordion_class,
+    small_text: true, heading: block.settings.heading, content: block.settings.content
+    -%}"
+  position: 5796..5963
+- from: |-
+    {% render 'widgets-accordion' with
+                    block: block,
+                    style: block.settings.style,
+                    classes: 'product__block product__block--small product--column-left'
+                  %}
+  to: "{% render 'widgets-accordion' with block, block: block, style: block.settings.style,
+    classes: 'product__block product__block--small product--column-left' %}"
+  position: 6100..6256
+- from: |-
+    {% render 'widgets-accordion' with
+                    block: block,
+                    style: block.settings.style,
+                    classes: 'product__block product__block--small product--column-left'
+                  %}
+  to: "{% render 'widgets-accordion' with block, block: block, style: block.settings.style,
+    classes: 'product__block product__block--small product--column-left' %}"
+  position: 6394..6550
+- from: "{% render 'icon' with icon: 'triangle' %}"
+  to: "{% render 'icon' with icon, icon: 'triangle' %}"
+  position: 15347..15394
+- from: "{% render 'icon' with icon: 'minus' true, non_focusable: true %}"
+  to: "{% render 'icon' with icon, icon: 'minus', non_focusable: true %}"
+  position: 16723..16788
+- from: "{% render 'icon' with icon: 'plus', non_focusable: true %}"
+  to: "{% render 'icon' with icon, icon: 'plus', non_focusable: true %}"
+  position: 17472..17536
+- from: |-
+    {% render 'product-form' with
+                    product: product,
+                    current_variant: current_variant,
+                    show_dynamic_checkout: block.settings.show_dynamic_checkout,
+                    custom_text_input_title: custom_text_title
+                  %}
+  to: "{% render 'product-form' with product, product: product, current_variant: current_variant,
+    show_dynamic_checkout: block.settings.show_dynamic_checkout, custom_text_input_title:
+    custom_text_title %}"
+  position: 19566..19763
+- from: |-
+    {%- render 'accordion-block' with
+                      block: block,
+                      classes: accordion_class,
+                      small_text: true,
+                      heading: description_title,
+                      content: product.description
+                    -%}
+  to: "{%- render 'accordion-block' with block, block: block, classes: accordion_class,
+    small_text: true, heading: description_title, content: product.description -%}"
+  position: 20957..21116
+- from: |-
+    {%- render 'inventory-counter' with
+                    product: product,
+                    show_label: block.settings.show_label,
+                    inventory_max: block.settings.inventory_max,
+                    low_inventory_threshold: block.settings.low_inventory_threshold,
+                    current_variant: current_variant,
+                  -%}
+  to: "{%- render 'inventory-counter' with product, product: product, show_label:
+    block.settings.show_label, inventory_max: block.settings.inventory_max, low_inventory_threshold:
+    block.settings.low_inventory_threshold, current_variant: current_variant -%}"
+  position: 21522..21770
+- from: |-
+    {%- render 'accordion-block' with
+                      block: block,
+                      classes: accordion_class,
+                      small_text: true,
+                      heading: block.settings.heading,
+                      content: block.settings.content
+                    -%}
+  to: "{%- render 'accordion-block' with block, block: block, classes: accordion_class,
+    small_text: true, heading: block.settings.heading, content: block.settings.content
+    -%}"
+  position: 22078..22245
+- from: |-
+    {% render 'widgets-accordion' with
+                      block: block,
+                      style: block.settings.style,
+                      classes: 'product__block product__block--small',
+                    %}
+  to: "{% render 'widgets-accordion' with block, block: block, style: block.settings.style,
+    classes: 'product__block product__block--small' %}"
+  position: 22391..22526
+- from: |-
+    {% render 'widgets-accordion' with
+                      block: block,
+                      style: block.settings.style,
+                      classes: 'product__block product__block--small',
+                    %}
+  to: "{% render 'widgets-accordion' with block, block: block, style: block.settings.style,
+    classes: 'product__block product__block--small' %}"
+  position: 22673..22808
+- from: |-
+    {% render 'widgets-accordion' with
+                      block: block,
+                      style: block.settings.style,
+                      classes: 'product__block product__block--small',
+                    %}
+  to: "{% render 'widgets-accordion' with block, block: block, style: block.settings.style,
+    classes: 'product__block product__block--small' %}"
+  position: 22955..23090
+- from: "{% render 'lightbox' with images: images %}"
+  to: "{% render 'lightbox' with images, images: images %}"
+  position: 24189..24240
+- from: "{% render 'quick-purchase-bar' with product: product, show_share_buttons:
+    show_share_buttons  %}"
+  to: "{% render 'quick-purchase-bar' with product, product: product, show_share_buttons:
+    show_share_buttons %}"
+  position: 24285..24389
+{%- endcomment -%}

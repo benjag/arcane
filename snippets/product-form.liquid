@@ -8,7 +8,7 @@
   has_access: [Boolean](optional - if false, disables the buy button)
 {% endcomment %}
 
-{% capture "form_classes" -%}
+{% capture form_classes -%}
   product-form product-form-{{ section.id }}
 {%- endcapture %}
 
@@ -103,7 +103,7 @@
         <div class="btn__loading-wrap">
           <div class="btn__loading-bar"></div>
         </div>
-        {% render 'icon' with icon: 'check' %}
+        {% render 'icon' with icon, icon: 'check' %}
       </button>
 
       {%- if show_dynamic_checkout and has_access != false -%}
@@ -120,4 +120,16 @@
       <div class="store-availability-container__wrapper" data-store-availability-container data-base-url="{{ shop.url }}{{ routes.root_url }}"></div>
     </div>
   </div>
-{%- endform -%}
+{%- endform -%}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: '{% capture "form_classes" -%}'
+  to: "{% capture form_classes -%}"
+  position: 427..454
+- from: "{% render 'icon' with icon: 'check' %}"
+  to: "{% render 'icon' with icon, icon: 'check' %}"
+  position: 4447..4491
+{%- endcomment -%}

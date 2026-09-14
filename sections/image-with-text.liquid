@@ -43,11 +43,7 @@
         {%- if image_1 -%}
           <div class="image-with-text__image-container-inner image-with-text__image--primary">
             <div class="image-with-text__image-wrapper">
-              {% render 'image' with
-                image: image_1,
-                wrapper_class: 'image-with-text__image',
-                disable_style: image_is_constrained,
-              %}
+              {% render 'image' with image, image: image_1, wrapper_class: 'image-with-text__image', disable_style: image_is_constrained %}
             </div>
           </div>
         {%- endif -%}
@@ -55,11 +51,7 @@
         {%- if image_2 -%}
           <div class="image-with-text__image-container-inner image-with-text__image--secondary">
             <div class="image-with-text__image-wrapper">
-              {% render 'image' with
-                image: image_2,
-                wrapper_class: 'image-with-text__image',
-                disable_style: image_is_constrained,
-              %}
+              {% render 'image' with image, image: image_2, wrapper_class: 'image-with-text__image', disable_style: image_is_constrained %}
             </div>
           </div>
         {%- endif -%}
@@ -317,4 +309,22 @@
       }
     ]
   }
-{% endschema %}
+{% endschema %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'image' with\r\n                image: image_1,\r\n                wrapper_class:
+    'image-with-text__image',\r\n                disable_style: image_is_constrained,\r\n
+    \             %}"
+  to: "{% render 'image' with image, image: image_1, wrapper_class: 'image-with-text__image',
+    disable_style: image_is_constrained %}"
+  position: 1443..1568
+- from: "{% render 'image' with\r\n                image: image_2,\r\n                wrapper_class:
+    'image-with-text__image',\r\n                disable_style: image_is_constrained,\r\n
+    \             %}"
+  to: "{% render 'image' with image, image: image_2, wrapper_class: 'image-with-text__image',
+    disable_style: image_is_constrained %}"
+  position: 1831..1956
+{%- endcomment -%}

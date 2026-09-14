@@ -32,11 +32,7 @@
     <div class="image-with-features__image-container">
       {%- if section.settings.image -%}
         <div class="image-with-features__image-wrapper">
-          {% render 'image' with
-            image: section.settings.image,
-            wrapper_class: 'image-with-features__image',
-            disable_style: image_is_constrained,
-          %}
+          {% render 'image' with image, image: section.settings.image, wrapper_class: 'image-with-features__image', disable_style: image_is_constrained %}
         </div>
       {%- else -%}
         <div class="image-with-features__image-wrapper">
@@ -57,13 +53,7 @@
             {{ block.settings.title | newline_to_br }}
           </h2>
         {%- else -%}
-          {% render 'image-with-features-item' with
-            image: block.settings.image,
-            image_shape: block.settings.image_shape,
-            text_max_width: block.settings.text_max_width,
-            heading: block.settings.heading,
-            subheading: block.settings.subheading,
-          %}
+          {% render 'image-with-features-item' with image, image: block.settings.image, image_shape: block.settings.image_shape, text_max_width: block.settings.text_max_width, heading: block.settings.heading, subheading: block.settings.subheading %}
         {%- endif -%}
       {%- endfor -%}
     </div>
@@ -279,4 +269,24 @@
       }
     ]
   }
-{% endschema %}
+{% endschema %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'image' with\r\n            image: section.settings.image,\r\n
+    \           wrapper_class: 'image-with-features__image',\r\n            disable_style:
+    image_is_constrained,\r\n          %}"
+  to: "{% render 'image' with image, image: section.settings.image, wrapper_class:
+    'image-with-features__image', disable_style: image_is_constrained %}"
+  position: 1091..1235
+- from: "{% render 'image-with-features-item' with\r\n            image: block.settings.image,\r\n
+    \           image_shape: block.settings.image_shape,\r\n            text_max_width:
+    block.settings.text_max_width,\r\n            heading: block.settings.heading,\r\n
+    \           subheading: block.settings.subheading,\r\n          %}"
+  to: "{% render 'image-with-features-item' with image, image: block.settings.image,
+    image_shape: block.settings.image_shape, text_max_width: block.settings.text_max_width,
+    heading: block.settings.heading, subheading: block.settings.subheading %}"
+  position: 1991..2230
+{%- endcomment -%}

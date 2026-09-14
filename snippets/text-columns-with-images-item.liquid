@@ -19,10 +19,7 @@
   <div class="text-columns-with-images__item-inner">
     {%- if image -%}
       <div class="text-columns-with-images__item-image">
-        {% render 'image' with
-          image: image,
-          disable_style: true,
-        %}
+        {% render 'image' with image, image: image, disable_style: true %}
       </div>
     {%- endif -%}
     {%- if heading != blank or subheading != blank -%}
@@ -55,4 +52,17 @@
       </a>
     </div>
   {%- endif -%}
-</div>
+</div>{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: |-
+    {% render 'image' with
+              image: image,
+              disable_style: true,
+            %}
+  to: "{% render 'image' with image, image: image, disable_style: true %}"
+  position: 529..595
+{%- endcomment -%}

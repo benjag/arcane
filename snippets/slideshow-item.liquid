@@ -59,19 +59,11 @@
 >
   <div class="slideshow__asset">
     {%- if desktop_image != blank -%}
-      {% render 'image' with
-        image: desktop_image,
-        wrapper_class: 'slideshow__image-wrapper slideshow__image--desktop',
-        disable_style: disable_style
-      %}
+      {% render 'image' with image, image: desktop_image, wrapper_class: 'slideshow__image-wrapper slideshow__image--desktop', disable_style: disable_style %}
     {%- endif -%}
 
     {%- if mobile_image != blank -%}
-      {% render 'image' with
-        image: mobile_image,
-        wrapper_class: 'slideshow__image-wrapper slideshow__image--mobile',
-        disable_style: disable_style
-      %}
+      {% render 'image' with image, image: mobile_image, wrapper_class: 'slideshow__image-wrapper slideshow__image--mobile', disable_style: disable_style %}
     {%- endif -%}
 
     {%- if desktop_image == blank -%}
@@ -129,4 +121,22 @@
     </div>
   {%- endif -%}
 
-</div>
+</div>{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'image' with\r\n        image: desktop_image,\r\n        wrapper_class:
+    'slideshow__image-wrapper slideshow__image--desktop',\r\n        disable_style:
+    disable_style\r\n      %}"
+  to: "{% render 'image' with image, image: desktop_image, wrapper_class: 'slideshow__image-wrapper
+    slideshow__image--desktop', disable_style: disable_style %}"
+  position: 2287..2439
+- from: "{% render 'image' with\r\n        image: mobile_image,\r\n        wrapper_class:
+    'slideshow__image-wrapper slideshow__image--mobile',\r\n        disable_style:
+    disable_style\r\n      %}"
+  to: "{% render 'image' with image, image: mobile_image, wrapper_class: 'slideshow__image-wrapper
+    slideshow__image--mobile', disable_style: disable_style %}"
+  position: 2506..2656
+{%- endcomment -%}

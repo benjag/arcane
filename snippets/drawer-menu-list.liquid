@@ -59,7 +59,7 @@
         {{ link.title }}
       </span>
       {%- if has_children -%}
-        {% render 'icon' with icon: 'arrow-stroke', class: 'menu-icon' %}
+        {% render 'icon' with icon, icon: 'arrow-stroke', class: 'menu-icon' %}
       {%- endif -%}
     </a>
 
@@ -69,11 +69,23 @@
         <li class="drawer-menu__item drawer-menu__item--heading">
           <button class="drawer-menu__link" data-heading="true" data-item="back">
             <span class="ff-heading fs-heading-2-base fs-heading-2-large-ns">{{ link.title }}</span>
-            {% render 'icon' with icon: 'arrow-stroke', class: 'menu-icon' %}
+            {% render 'icon' with icon, icon: 'arrow-stroke', class: 'menu-icon' %}
           </button>
         </li>
         {% render 'drawer-menu-list', links: link.links, depth: menu_depth %}
       </ul>
     {%- endif -%}
   </li>
-{%- endfor -%}
+{%- endfor -%}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'icon' with icon: 'arrow-stroke', class: 'menu-icon' %}"
+  to: "{% render 'icon' with icon, icon: 'arrow-stroke', class: 'menu-icon' %}"
+  position: 1519..1590
+- from: "{% render 'icon' with icon: 'arrow-stroke', class: 'menu-icon' %}"
+  to: "{% render 'icon' with icon, icon: 'arrow-stroke', class: 'menu-icon' %}"
+  position: 2088..2159
+{%- endcomment -%}

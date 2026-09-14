@@ -7,10 +7,20 @@
     {%- if settings[social_link] != blank -%}
       <li>
         <a href="{{ settings[social_link] }}" title="{{ 'sections.footer.social_platform' | t: name: shop.name, platform: social }}" target="_blank">
-          {% render 'icon' with icon: social_handle %}
+          {% render 'icon' with icon, icon: social_handle %}
         </a>
       </li>
     {%- endif -%}
 
   {%- endfor -%}
 </ul>
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'icon' with icon: social_handle %}"
+  to: "{% render 'icon' with icon, icon: social_handle %}"
+  position: 560..610
+{% endcomment %}

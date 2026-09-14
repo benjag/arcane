@@ -28,7 +28,7 @@
 
     <div class="mosaic-grid__grid">
       {%- for block in section.blocks -%}
-        {%- render 'mosaic-grid-item' with block: block -%}
+        {%- render 'mosaic-grid-item' with block, block: block -%}
       {%- endfor -%}
     </div>
   </div>
@@ -1034,3 +1034,13 @@
     ]
   }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- render 'mosaic-grid-item' with block: block -%}"
+  to: "{%- render 'mosaic-grid-item' with block, block: block -%}"
+  position: 837..895
+{% endcomment %}

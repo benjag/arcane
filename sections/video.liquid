@@ -57,11 +57,7 @@
             {%- endif -%}
 
             {%- if block.settings.image != blank -%}
-              {% render 'image' with
-                image: block.settings.image,
-                wrapper_class: 'video__image visible',
-                disable_style: true
-              %}
+              {% render 'image' with image, image: block.settings.image, wrapper_class: 'video__image visible', disable_style: true %}
             {%- endif -%}
 
             <div class="video__overlay visible" data-overlay>
@@ -72,7 +68,7 @@
                 data-video-trigger
                 aria-label="{{ 'general.accessibility.play_video' | t }}"
               >
-                {% render 'icon' with icon: 'play_arrow' %}
+                {% render 'icon' with icon, icon: 'play_arrow' %}
               </button>
             </div>
           </div>
@@ -242,3 +238,19 @@
     ]
   }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'image' with\r\n                image: block.settings.image,\r\n
+    \               wrapper_class: 'video__image visible',\r\n                disable_style:
+    true\r\n              %}"
+  to: "{% render 'image' with image, image: block.settings.image, wrapper_class: 'video__image
+    visible', disable_style: true %}"
+  position: 2025..2145
+- from: "{% render 'icon' with icon: 'play_arrow' %}"
+  to: "{% render 'icon' with icon, icon: 'play_arrow' %}"
+  position: 2508..2557
+{% endcomment %}

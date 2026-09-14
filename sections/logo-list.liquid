@@ -47,10 +47,7 @@
 
       <div class="logo-list__list">
         {%- for block in section.blocks -%}
-          {% render 'logo-list-item' with
-            image: block.settings.image,
-            link: block.settings.link,
-          %}
+          {% render 'logo-list-item' with image, image: block.settings.image, link: block.settings.link %}
         {%- endfor -%}
       </div>
     </div>
@@ -174,3 +171,15 @@
     ]
   }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'logo-list-item' with\r\n            image: block.settings.image,\r\n
+    \           link: block.settings.link,\r\n          %}"
+  to: "{% render 'logo-list-item' with image, image: block.settings.image, link: block.settings.link
+    %}"
+  position: 1362..1458
+{% endcomment %}
